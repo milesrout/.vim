@@ -1,8 +1,9 @@
 call pathogen#infect()
 
-" General options
+" General sanity
 syntax on
-set bg=dark
+set background=dark
+colorscheme base16-ashes
 set guifont=Monaco:h14
 set colorcolumn=80
 set columns=83
@@ -26,11 +27,6 @@ vnoremap : ;
 onoremap : ;
 onoremap ; :
 
-nmap <F5> <ESC>
-imap <F5> <ESC>
-vmap <F5> <ESC>
-omap <F5> <ESC>
-
 " Fix stupid things about vim
 set wildmode=list:longest,longest
 set autochdir
@@ -40,7 +36,7 @@ set backspace=indent,eol,start
 set cino=b1,g0,N-s,i4
 set cinkeys=0{,0},0),:,0#,!^F,o,O,e,0=break
 
-" need both of these for automatic indentation to work properly
+" Both of these are needed for automatic indentation to work properly
 set autoindent
 set smartindent
 
@@ -52,12 +48,12 @@ silent! set winminheight=5
 set winwidth=80
 silent! set winminwidth=40
 
-" no stupid files
+" Get rid of those stupid files
 set nowritebackup
 set noswapfile
 set nobackup
 
-" folding options
+" Folding options
 set foldtext=v:folddashes.substitute(getline(v:foldstart),'/\\*\\\|\\*/\\\|{{{\\d\\=','','g')
 
 " Windows GUI options
@@ -69,10 +65,15 @@ set guioptions-=L
 let maplocalleader="|"
 let mapleader="\\"
 
+" Disable arrow keys (to force me to use hjkl)
 map <left> <nop>
 map <right> <nop>
 map <up> <nop>
 map <down> <nop>
+imap <left> <nop>
+imap <right> <nop>
+imap <up> <nop>
+imap <down> <nop>
 
 vmap <leader>y "+y
 vmap <leader>d "+d
@@ -81,18 +82,22 @@ vmap <leader>p "+p
 nmap <leader>P "+P
 vmap <leader>P "+P
 
-nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+nnoremap <leader>v :edit $MYVIMRC<cr>
+nnoremap <leader>vS :split $MYVIMRC<cr>
+nnoremap <leader>vV :vsplit $MYVIMRC<cr>
+nnoremap <leader>vT :tabedit $MYVIMRC<cr>
 
+" Glorious 8-space tabs master race
 set tabstop=8
 set shiftwidth=8
 set noexpandtab
 
-" non-typo abbreviations
+" Non-typo abbreviations
 iabbrev myemail miles.rout@gmail.com
 iabbrev mysig Miles Rout <miles.rout@gmail.com>
 iabbrev impm In my perfect MMORPG
 
-" Miscellaneous crap
+" Javascript crap
 let g:js_context_colors_enabled = 1
 
 " General autocmds
