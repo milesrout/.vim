@@ -4,7 +4,7 @@ call pathogen#infect()
 syntax on
 set background=dark
 colorscheme base16-ashes
-set guifont=Monaco:h14
+set guifont=Source\ Code\ Pro\ Medium:h16
 set colorcolumn=80
 set columns=83
 set nocompatible
@@ -15,9 +15,7 @@ set incsearch
 
 " Conceal
 set conceallevel=2
-hi Conceal guifg=purple
-hi Conceal guibg=white
-let g:tex_conceal='admgs'
+let g:tex_conceal='admg'
 
 " Mappings
 nnoremap ; :
@@ -43,10 +41,6 @@ set smartindent
 " Splits
 set splitbelow
 set splitright
-set winheight=20
-silent! set winminheight=5
-set winwidth=80
-silent! set winminwidth=40
 
 " Get rid of those stupid files
 set nowritebackup
@@ -82,14 +76,16 @@ vmap <leader>p "+p
 nmap <leader>P "+P
 vmap <leader>P "+P
 
-nnoremap <leader>v :edit $MYVIMRC<cr>
+nnoremap <leader>vE :edit $MYVIMRC<cr>
 nnoremap <leader>vS :split $MYVIMRC<cr>
 nnoremap <leader>vV :vsplit $MYVIMRC<cr>
 nnoremap <leader>vT :tabedit $MYVIMRC<cr>
+nnoremap <leader>s  :call ConcealSplit()<cr>
 
 " Glorious 8-space tabs master race
 set tabstop=8
 set shiftwidth=8
+set textwidth=0
 set noexpandtab
 
 " Non-typo abbreviations
@@ -99,6 +95,15 @@ iabbrev impm In my perfect MMORPG
 
 " Javascript crap
 let g:js_context_colors_enabled = 1
+
+" Conceal crap
+function! ConcealSplit()
+	set cursorbind
+	set scrollbind
+	set conceallevel=2
+	vsplit
+	set conceallevel=0
+endfunction
 
 " General autocmds
 augroup myaugroup_reload_vimrc 
