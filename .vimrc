@@ -4,7 +4,6 @@ call pathogen#infect()
 syntax on
 set background=dark
 colorscheme base16-ashes
-set guifont=Source\ Code\ Pro\ Medium:h16
 set colorcolumn=80
 set columns=83
 set nocompatible
@@ -12,6 +11,18 @@ set nowrap
 set number
 set tildeop
 set incsearch
+
+" Font
+if has('unix')
+	if has('mac') || has('macunix')
+		set guifont=Source\ Code\ Pro\ Medium:h16
+	else
+		set guifont=Source\ Code\ Pro\ Medium\ 16
+	endif
+elseif has('win32') || has('win64')
+	" FIXME?
+	set guifont=Source\ Code\ Pro\ Medium:h16
+endif
 
 " Conceal
 set conceallevel=2
