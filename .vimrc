@@ -135,9 +135,11 @@ augroup END
 augroup myaugroup_haskell
   autocmd!
   autocmd FileType haskell set ts=4 sw=4 et
-  autocmd FileType haskell nnoremap <buffer> <leader>r  :!ghci %<cr>
-  autocmd FileType haskell nnoremap <buffer> <leader>c  :!ghc %<cr>
-  autocmd FileType haskell nnoremap <buffer> <leader>w  :w<cr>:!ghc %<cr>
+  autocmd FileType haskell nnoremap <buffer> <leader>si  :!stack ghci<cr>
+  autocmd FileType haskell nnoremap <buffer> <leader>sc  :!stack ghc %<cr>
+  autocmd FileType haskell nnoremap <buffer> <leader>gi  :!ghci %<cr>
+  autocmd FileType haskell nnoremap <buffer> <leader>gc  :!ghc %<cr>
+  autocmd FileType haskell nnoremap <buffer> <leader>w   :w<cr>:!ghc %<cr>
 augroup END
 
 augroup myaugroup_tex
