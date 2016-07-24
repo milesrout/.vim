@@ -92,10 +92,14 @@ vmap <leader>p "+p
 nmap <leader>P "+P
 vmap <leader>P "+P
 
-nnoremap <leader>vE :edit $MYVIMRC<cr>
-nnoremap <leader>vS :split $MYVIMRC<cr>
-nnoremap <leader>vV :vsplit $MYVIMRC<cr>
-nnoremap <leader>vT :tabedit $MYVIMRC<cr>
+nnoremap <leader>ve :edit $MYVIMRC<cr>
+nnoremap <leader>vs :split $MYVIMRC<cr>
+nnoremap <leader>vv :vsplit $MYVIMRC<cr>
+nnoremap <leader>vt :tabedit $MYVIMRC<cr>
+
+nnoremap <leader>bl :set bg=light<cr>
+nnoremap <leader>bd :set bg=dark<cr>
+
 nnoremap <leader>s  :call ConcealSplit()<cr>
 
 " Glorious 8-space tabs master race
