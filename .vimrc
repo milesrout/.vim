@@ -2,10 +2,7 @@ call pathogen#infect()
 
 " General sanity
 syntax on
-set background=dark
-colorscheme base16-ashes
 set colorcolumn=80
-set columns=83
 set nocompatible
 set nowrap
 set number
@@ -13,15 +10,22 @@ set tildeop
 set incsearch
 
 " Font
-if has('unix')
-	if has('mac') || has('macunix')
-		set guifont=Source\ Code\ Pro\ Medium:h16
-	else
-		set guifont=Source\ Code\ Pro\ Medium\ 16
-	endif
-elseif has('win32') || has('win64')
-	" FIXME?
-	set guifont=Source\ Code\ Pro\ Medium:h16
+if has('gui_running')
+  if has('unix')
+    if has('mac') || has('macunix')
+      set guifont=Source\ Code\ Pro\ Medium:h16
+    else
+      set guifont=Source\ Code\ Pro\ Medium\ 16
+    endif
+  elseif has('win32') || has('win64')
+    " FIXME?
+    set guifont=Source\ Code\ Pro\ Medium:h16
+  endif
+  set background=dark
+  colorscheme base16-atelierheath
+else
+  set background=light
+  colorscheme default
 endif
 
 " Conceal
@@ -109,11 +113,11 @@ let g:js_context_colors_enabled = 1
 
 " Conceal crap
 function! ConcealSplit()
-	set cursorbind
-	set scrollbind
-	set conceallevel=2
-	vsplit
-	set conceallevel=0
+  set cursorbind
+  set scrollbind
+  set conceallevel=2
+  vsplit
+  set conceallevel=0
 endfunction
 
 " General autocmds
