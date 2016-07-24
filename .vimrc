@@ -30,6 +30,7 @@ endif
 
 " Conceal
 set conceallevel=2
+hi clear Conceal
 let g:tex_conceal='admg'
 
 " Mappings
