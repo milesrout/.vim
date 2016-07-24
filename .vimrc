@@ -148,6 +148,11 @@ augroup myaugroup_tex
   autocmd FileType tex nnoremap <buffer> <leader>w  :w<cr>:!pdflatex %<cr>
 augroup END
 
+augroup myaugroup_cpp
+  autocmd!
+  autocmd Filetype cpp set ts=4 sw=4 et
+augroup END
+
 augroup myaugroup_dcpu
   autocmd!
   autocmd BufRead,BufNewFile *.s set filetype=dcpu
