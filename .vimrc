@@ -111,7 +111,6 @@ set noexpandtab
 " Non-typo abbreviations
 iabbrev myemail miles.rout@gmail.com
 iabbrev mysig Miles Rout <miles.rout@gmail.com>
-iabbrev impm In my perfect MMORPG
 
 " Javascript crap
 let g:js_context_colors_enabled = 1
