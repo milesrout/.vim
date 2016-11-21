@@ -11,9 +11,12 @@ set incsearch
 
 " Font
 if has('gui_running')
+  set background=dark
+  colorscheme base16-atelierheath
   if has('unix')
     if has('mac') || has('macunix')
       set guifont=Source\ Code\ Pro\ Medium:h16
+      set background=light
     else
       set guifont=Source\ Code\ Pro\ Medium\ 16
     endif
@@ -21,8 +24,6 @@ if has('gui_running')
     " FIXME?
     set guifont=Source\ Code\ Pro\ Medium:h16
   endif
-  set background=dark
-  colorscheme base16-atelierheath
 else
   set background=light
   colorscheme default
@@ -49,6 +50,7 @@ set backspace=indent,eol,start
 " Indentation
 set cino=b1,g0,N-s,i4
 set cinkeys=0{,0},0),:,0#,!^F,o,O,e,0=break
+set listchars=tab:⇥\ ,space:·
 
 " Both of these are needed for automatic indentation to work properly
 set autoindent
@@ -102,6 +104,9 @@ nnoremap <leader>bd :set bg=dark<cr>
 
 nnoremap <leader>s  :call ConcealSplit()<cr>
 
+nnoremap <leader>l  :set list!<cr>
+nnoremap <leader>cc :call ToggleColorColumn()<cr>
+
 " Glorious 8-space tabs master race
 set tabstop=8
 set shiftwidth=8
@@ -124,27 +129,45 @@ function! ConcealSplit()
   set conceallevel=0
 endfunction
 
+" Stupid vimscript shit
+function! SetVimscriptIndents()
+  set tabstop=2
+  set softtabstop=2
+  set shiftwidth=2
+  set expandtab
+endfunction
+
+" Colorcolumn toggling
+function! ToggleColorColumn()
+  if &colorcolumn == ""
+    set colorcolumn=80
+  else
+    set colorcolumn=
+  endif
+endfunction
+
 " General autocmds
 augroup myaugroup_reload_vimrc 
   autocmd!
   autocmd BufWritePost $MYVIMRC source $MYVIMRC
+  autocmd BufWritePost $MYVIMRC call SetVimscriptIndents()
 augroup END
 
 " Language-specific autocmds
 augroup myaugroup_haskell
   autocmd!
   autocmd FileType haskell set ts=4 sw=4 et
-  autocmd FileType haskell nnoremap <buffer> <leader>si  :!stack ghci<cr>
-  autocmd FileType haskell nnoremap <buffer> <leader>sc  :!stack ghc %<cr>
-  autocmd FileType haskell nnoremap <buffer> <leader>gi  :!ghci %<cr>
-  autocmd FileType haskell nnoremap <buffer> <leader>gc  :!ghc %<cr>
-  autocmd FileType haskell nnoremap <buffer> <leader>w   :w<cr>:!ghc %<cr>
+  autocmd FileType haskell nnoremap <buffer> <localleader>si  :!stack ghci<cr>
+  autocmd FileType haskell nnoremap <buffer> <localleader>sc  :!stack ghc %<cr>
+  autocmd FileType haskell nnoremap <buffer> <localleader>gi  :!ghci %<cr>
+  autocmd FileType haskell nnoremap <buffer> <localleader>gc  :!ghc %<cr>
+  autocmd FileType haskell nnoremap <buffer> <localleader>w   :w<cr>:!ghc %<cr>
 augroup END
 
 augroup myaugroup_tex
   autocmd!
-  autocmd FileType tex nnoremap <buffer> <leader>c  :!pdflatex %<cr>
-  autocmd FileType tex nnoremap <buffer> <leader>w  :w<cr>:!pdflatex %<cr>
+  autocmd FileType tex nnoremap <buffer> <localleader>c  :!pdflatex %<cr>
+  autocmd FileType tex nnoremap <buffer> <localleader>w  :w<cr>:!pdflatex %<cr>
 augroup END
 
 augroup myaugroup_cpp
@@ -159,7 +182,7 @@ augroup END
 
 augroup myaugroup_javascript
   autocmd!
-  autocmd FileType javascript set ts=2 sw=2 et
+  autocmd FileType javascript set sts=2 ts=2 sw=2 noet
 augroup END
 
 augroup myaugroup_typescript
@@ -170,4 +193,9 @@ augroup END
 augroup my_augroup_python
   autocmd!
   autocmd FileType python set ts=4 sw=4 et
+augroup END
+
+augroup my_augroup_vim
+  autocmd!
+  autocmd FileType vim call SetVimscriptIndents()
 augroup END
