@@ -44,7 +44,7 @@ onoremap ; :
 
 " Fix stupid things about vim
 set wildmode=list:longest,longest
-set autochdir
+set autochdir  " in hindsight this is probably not a good idea
 set backspace=indent,eol,start
 
 " Indentation
@@ -107,6 +107,16 @@ nnoremap <leader>s  :call ConcealSplit()<cr>
 nnoremap <leader>l  :set list!<cr>
 nnoremap <leader>cc :call ToggleColorColumn()<cr>
 
+nnoremap <leader>f  :!grep 
+nnoremap <leader>F  :!rg 
+
+nnoremap <leader>cu :chdir ..<cr>
+nnoremap <leader>cg :call ChangeToGitToplevel()<cr>
+
+
+nnoremap <F7>       :tabp<cr>
+nnoremap <F8>       :tabn<cr>
+
 " Glorious 8-space tabs master race
 set tabstop=8
 set shiftwidth=8
@@ -144,6 +154,16 @@ function! ToggleColorColumn()
   else
     set colorcolumn=
   endif
+endfunction
+
+" e.g. if in ~/.vim/bundle will go to ~/.vim
+function! ChangeToGitToplevel()
+  let dir = system('git rev-parse --show-toplevel')
+  if !v:shell_error
+    echoerr dir
+    return 1
+  endif
+  execute 'chdir '.dir
 endfunction
 
 " General autocmds
@@ -198,4 +218,9 @@ augroup END
 augroup my_augroup_vim
   autocmd!
   autocmd FileType vim call SetVimscriptIndents()
+augroup END
+
+augroup my_augroup_html
+  autocmd!
+  autocmd FileType html set ts=2 sts=2 sw=2 noet
 augroup END

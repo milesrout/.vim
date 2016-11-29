@@ -49,3 +49,6 @@
 [submodule "bundle/vim-flagship"]
 	path = bundle/vim-flagship
 	url = https://github.com/tpope/vim-flagship.git
+[submodule "bundle/swift.vim"]
+	path = bundle/swift.vim
+	url = git@github.com:keith/swift.vim.git
