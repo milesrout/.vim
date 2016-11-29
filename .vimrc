@@ -2,12 +2,19 @@ call pathogen#infect()
 
 " General sanity
 syntax on
+set textwidth=0
 set colorcolumn=80
 set nocompatible
 set nowrap
 set number
 set tildeop
 set incsearch
+
+" Glorious 8-space tabs master race
+set tabstop=8
+set softtabstop=8
+set shiftwidth=8
+set noexpandtab
 
 " Font
 if has('gui_running')
@@ -31,7 +38,6 @@ endif
 
 " Conceal
 set conceallevel=2
-hi clear Conceal
 let g:tex_conceal='admg'
 
 " Mappings
@@ -44,7 +50,7 @@ onoremap ; :
 
 " Fix stupid things about vim
 set wildmode=list:longest,longest
-set autochdir  " in hindsight this is probably not a good idea
+"set autochdir  " in hindsight this is probably not a good idea
 set backspace=indent,eol,start
 
 " Indentation
@@ -74,7 +80,7 @@ set guioptions-=T
 set guioptions-=r
 set guioptions-=L
 
-let maplocalleader="|"
+let maplocalleader=","
 let mapleader="\\"
 
 " Disable arrow keys (to force me to use hjkl)
@@ -94,28 +100,30 @@ vmap <leader>p "+p
 nmap <leader>P "+P
 vmap <leader>P "+P
 
-nnoremap <leader>ve :edit $MYVIMRC<cr>
-nnoremap <leader>vs :split $MYVIMRC<cr>
-nnoremap <leader>vv :vsplit $MYVIMRC<cr>
-nnoremap <leader>vt :tabedit $MYVIMRC<cr>
+nnoremap <leader>ve   :edit $MYVIMRC<cr>
+nnoremap <leader>vs   :split $MYVIMRC<cr>
+nnoremap <leader>vv   :vsplit $MYVIMRC<cr>
+nnoremap <leader>vt   :tabedit $MYVIMRC<cr>
 
-nnoremap <leader>bl :set bg=light<cr>
-nnoremap <leader>bd :set bg=dark<cr>
+nnoremap <leader>bl   :set bg=light<cr>
+nnoremap <leader>bd   :set bg=dark<cr>
 
-nnoremap <leader>s  :call ConcealSplit()<cr>
+nnoremap <leader>ttw  :call ToggleTextwidth()<cr>
+nnoremap <leader>tw   :call ToggleWrap()<cr>
 
-nnoremap <leader>l  :set list!<cr>
-nnoremap <leader>cc :call ToggleColorColumn()<cr>
+nnoremap <leader>l    :set list!<cr>
+nnoremap <leader>cc   :call ToggleColorColumn()<cr>
 
-nnoremap <leader>f  :!grep 
-nnoremap <leader>F  :!rg 
+nnoremap <leader>f    :!grep 
+nnoremap <leader>F    :!rg 
 
-nnoremap <leader>cu :chdir ..<cr>
-nnoremap <leader>cg :call ChangeToGitToplevel()<cr>
+nnoremap <leader>cu   :chdir ..<cr>
+nnoremap <leader>cg   :call ChangeToGitToplevel()<cr>
 
+nnoremap <leader>scs  :call ConcealSplit()<cr>
 
-nnoremap <F7>       :tabp<cr>
-nnoremap <F8>       :tabn<cr>
+nnoremap <F7>         :tabp<cr>
+nnoremap <F8>         :tabn<cr>
 
 " Glorious 8-space tabs master race
 set tabstop=8
@@ -130,10 +138,34 @@ iabbrev mysig Miles Rout <miles.rout@gmail.com>
 " Javascript crap
 let g:js_context_colors_enabled = 1
 
+" Wrap crap
+function! ToggleWrap()
+  if &wrap
+    set nowrap
+    set colorcolumn=80
+  else
+    set wrap
+    set colorcolumn=0
+  endif
+endfunction
+
+function! ToggleTextwidth()
+  if &textwidth != 0
+    set tw=79
+    set nowrap
+    set colorcolumn=0
+  else
+    set tw=0
+    set wrap
+    set colorcolumn=80
+  endif
+endfunction
+
 " Conceal crap
 function! ConcealSplit()
   set cursorbind
   set scrollbind
+  set wrap
   set conceallevel=2
   vsplit
   set conceallevel=0
@@ -174,9 +206,14 @@ augroup myaugroup_reload_vimrc
 augroup END
 
 " Language-specific autocmds
+augroup myaugroup_vimscript
+  autocmd!
+  autocmd FileType vim set ts=2 sts=2 sw=2 et
+augroup END
+
 augroup myaugroup_haskell
   autocmd!
-  autocmd FileType haskell set ts=4 sw=4 et
+  autocmd FileType haskell set ts=4 sts=4 sw=4 et
   autocmd FileType haskell nnoremap <buffer> <localleader>si  :!stack ghci<cr>
   autocmd FileType haskell nnoremap <buffer> <localleader>sc  :!stack ghc %<cr>
   autocmd FileType haskell nnoremap <buffer> <localleader>gi  :!ghci %<cr>
@@ -188,11 +225,12 @@ augroup myaugroup_tex
   autocmd!
   autocmd FileType tex nnoremap <buffer> <localleader>c  :!pdflatex %<cr>
   autocmd FileType tex nnoremap <buffer> <localleader>w  :w<cr>:!pdflatex %<cr>
+  autocmd FileType tex nnoremap <buffer> <localleader>cl :hi clear Conceal<cr>
 augroup END
 
 augroup myaugroup_cpp
   autocmd!
-  autocmd Filetype cpp set ts=4 sw=4 et
+  autocmd Filetype cpp set ts=4 sts=4 sw=4 et
 augroup END
 
 augroup myaugroup_dcpu
@@ -202,17 +240,23 @@ augroup END
 
 augroup myaugroup_javascript
   autocmd!
-  autocmd FileType javascript set sts=2 ts=2 sw=2 noet
+  autocmd FileType javascript set ts=2 sts=2 sw=2 noet
 augroup END
 
 augroup myaugroup_typescript
   autocmd!
-  autocmd FileType typescript set ts=2 sw=2 et
+  autocmd FileType typescript set ts=2 sts=2 sw=2 et
 augroup END
 
 augroup my_augroup_python
   autocmd!
-  autocmd FileType python set ts=4 sw=4 et
+  autocmd FileType python set ts=4 sts=4 sw=4 et
+augroup END
+
+augroup my_augroup_visp
+  autocmd!
+  autocmd BufRead,BufNewFile *.visp set filetype=visp
+  autocmd FileType visp set ts=2 sts=2 sw=2 et
 augroup END
 
 augroup my_augroup_vim
