@@ -110,18 +110,20 @@ nnoremap <leader>bd   :set bg=dark<cr>
 
 nnoremap <leader>ttw  :call ToggleTextwidth()<cr>
 nnoremap <leader>tw   :call ToggleWrap()<cr>
+nnoremap <leader>tcc  :call ToggleColorColumn()<cr>
 
 nnoremap <leader>l    :set list!<cr>
-nnoremap <leader>cc   :call ToggleColorColumn()<cr>
 
-nnoremap <leader>f    :!grep 
-nnoremap <leader>F    :!rg 
+nnoremap <leader>f    :call FindByFilename()<cr>
+nnoremap <leader>F    :call FindByContent()<cr>
 
 nnoremap <leader>cu   :chdir ..<cr>
 nnoremap <leader>cg   :call ChangeToGitToplevel()<cr>
 
 nnoremap <leader>scs  :call ConcealSplit()<cr>
 
+nnoremap <F5>         :lprev<cr>
+nnoremap <F6>         :lnext<cr>
 nnoremap <F7>         :tabp<cr>
 nnoremap <F8>         :tabn<cr>
 
@@ -138,26 +140,50 @@ iabbrev mysig Miles Rout <miles.rout@gmail.com>
 " Javascript crap
 let g:js_context_colors_enabled = 1
 
+function! FindByFilename()
+  call inputsave()
+  let search = input("Search (by filename): ", "", "file")
+  call inputrestore()
+  call DoFindByFilename(search)
+endfunction
+
+function! FindByContent()
+  call inputsave()
+  let search = input("Search (by content): ")
+  call inputrestore()
+  call DoFindByContent(search)
+endfunction
+
+function! DoFindByFilename(pattern)
+  lexpr system("find . -iname '*" . a:pattern . "*'")
+  lopen
+endfunction
+
+function! DoFindByContent(pattern)
+  lexpr system('rg --column -nie ' . a:pattern)
+  lopen
+endfunction
+
 " Wrap crap
 function! ToggleWrap()
   if &wrap
     set nowrap
-    set colorcolumn=80
+    call ColorColumnOn()
   else
     set wrap
-    set colorcolumn=0
+    call ColorColumnOff()
   endif
 endfunction
 
 function! ToggleTextwidth()
-  if &textwidth != 0
-    set tw=79
+  if &textwidth == 0
+    call ColorColumnOff()
+    let &tw = (g:old_colorcolumn - 1)
     set nowrap
-    set colorcolumn=0
   else
+    call ColorColumnOn()
     set tw=0
     set wrap
-    set colorcolumn=80
   endif
 endfunction
 
@@ -182,20 +208,35 @@ endfunction
 " Colorcolumn toggling
 function! ToggleColorColumn()
   if &colorcolumn == ""
-    set colorcolumn=80
+    call ColorColumnOn()
   else
+    call ColorColumnOff()
+  endif
+endfunction
+
+function! ColorColumnOn()
+  if &colorcolumn == ""
+    let &colorcolumn=g:old_colorcolumn
+  endif
+endfunction
+
+function! ColorColumnOff()
+  if &colorcolumn != ""
+    let g:old_colorcolumn=&colorcolumn
     set colorcolumn=
   endif
 endfunction
 
 " e.g. if in ~/.vim/bundle will go to ~/.vim
 function! ChangeToGitToplevel()
+  cd %:p:h
   let dir = system('git rev-parse --show-toplevel')
   if !v:shell_error
     echoerr dir
     return 1
   endif
   execute 'chdir '.dir
+  return 0
 endfunction
 
 " General autocmds
