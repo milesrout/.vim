@@ -165,7 +165,7 @@ function! FindByContent()
     return 1
   endif
   call inputrestore()
-  lexpr system('rg --column -nie "' . pattern . '"')
+  lexpr system('rg --column -nSe "' . pattern . '"')
   lopen
 endfunction
 
