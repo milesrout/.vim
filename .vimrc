@@ -117,6 +117,7 @@ nnoremap <leader>l    :set list!<cr>
 nnoremap <leader>f    :call FindByFilename()<cr>
 nnoremap <leader>F    :call FindByContent()<cr>
 
+nnoremap <leader>cd   :chdir %:p:h<cr>
 nnoremap <leader>cu   :chdir ..<cr>
 nnoremap <leader>cg   :call ChangeToGitToplevel()<cr>
 
@@ -126,6 +127,8 @@ nnoremap <F5>         :lprev<cr>
 nnoremap <F6>         :lnext<cr>
 nnoremap <F7>         :tabp<cr>
 nnoremap <F8>         :tabn<cr>
+
+nnoremap <leader>o    :on<cr>
 
 " Glorious 8-space tabs master race
 set tabstop=8
@@ -142,25 +145,23 @@ let g:js_context_colors_enabled = 1
 
 function! FindByFilename()
   call inputsave()
-  let search = input("Search (by filename): ", "", "file")
+  let pattern = input("Search (by filename): ", "", "file")
+  if empty(pattern)
+    return 1
+  endif
   call inputrestore()
-  call DoFindByFilename(search)
+  lexpr system("find . -iname '*" . pattern . "*'")
+  lopen
 endfunction
 
 function! FindByContent()
   call inputsave()
-  let search = input("Search (by content): ")
+  let pattern = input("Search (by content): ")
+  if empty(pattern)
+    return 1
+  endif
   call inputrestore()
-  call DoFindByContent(search)
-endfunction
-
-function! DoFindByFilename(pattern)
-  lexpr system("find . -iname '*" . a:pattern . "*'")
-  lopen
-endfunction
-
-function! DoFindByContent(pattern)
-  lexpr system('rg --column -nie ' . a:pattern)
+  lexpr system('rg --column -nie "' . pattern . '"')
   lopen
 endfunction
 
@@ -231,12 +232,12 @@ endfunction
 function! ChangeToGitToplevel()
   cd %:p:h
   let dir = system('git rev-parse --show-toplevel')
-  if !v:shell_error
+  if v:shell_error
     echoerr dir
     return 1
   endif
   execute 'chdir '.dir
-  return 0
+  pwd
 endfunction
 
 " General autocmds
