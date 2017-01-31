@@ -32,7 +32,11 @@ if has('gui_running')
     set guifont=Source\ Code\ Pro\ Medium:h16
   endif
 else
-  set background=light
+  if has('vconsole')
+    set background=dark
+  else
+    set background=light
+  endif
   colorscheme default
 endif
 
