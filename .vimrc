@@ -12,6 +12,7 @@ set nowrap
 set number
 set tildeop
 set incsearch
+set shell=/bin/bash
 
 " Stupid syntastic shit
 let g:syntastic_check_on_open = 1
@@ -75,7 +76,6 @@ set backspace=indent,eol,start
 " Indentation
 set cino=b1,g0,N-s,i4
 set cinkeys=0{,0},0),:,0#,!^F,o,O,e,0=break
-"set listchars=tab:ý
 set listchars=tab:⇥\ ,space:·
 
 " Both of these are needed for automatic indentation to work properly
@@ -87,9 +87,11 @@ set splitbelow
 set splitright
 
 " Get rid of those stupid files
-set nowritebackup
-set noswapfile
-set nobackup
+set backupdir=$HOME/.vim/tmp
+set directory=$HOME/.vim/tmp
+set swapfile
+set backup
+set viminfo+=%
 
 " Folding options
 set foldtext=v:folddashes.substitute(getline(v:foldstart),'/\\*\\\|\\*/\\\|{{{\\d\\=','','g')
@@ -145,13 +147,15 @@ noremap <leader>cg   :call ChangeToGitToplevel()<cr>
 
 noremap <leader>scs  :call ConcealSplit()<cr>
 
-noremap <F2>         :caddexpr expand("%").":".line(".").":".getline(".")<cr>
+noremap <F2>         :caddexpr expand("%").":".line(".").":".col(".")<cr>
 noremap <F3>         :cprev<cr>
 noremap <F4>         :cnext<cr>
 noremap <F5>         :lprev<cr>
 noremap <F6>         :lnext<cr>
 noremap <F7>         :tabp<cr>
 noremap <F8>         :tabn<cr>
+noremap <F9>         :call SwitchToJavaScript()<cr>
+noremap <F10>        :call SwitchToTypeScript()<cr>
 
 noremap <leader>o    :only<cr>
 
@@ -173,6 +177,22 @@ iabbrev mysig Miles Rout <miles.rout@gmail.com>
 
 " Javascript crap
 let g:js_context_colors_enabled = 1
+
+function! SwitchToJavaScript()
+  let command = "node \"$HOME/.vim/jsts-mapper/index.js\" gen ".expand("%")." ".line(".")." ".col(".")
+  let path = system(command)
+  let [file, line, column] = split(path, ":")
+  execute 'edit' l:file
+  call cursor(line, column)
+endfunction
+
+function! SwitchToTypeScript()
+  let command = "node \"$HOME/.vim/jsts-mapper/index.js\" orig ".expand("%")." ".line(".")." ".col(".")
+  let path = system(command)
+  let [file, line, column] = split(path, ":")
+  execute 'edit' l:file
+  call cursor(line, column)
+endfunction
 
 function! Tab(char, times)
   let pattern = "/^"
@@ -318,11 +338,6 @@ augroup myaugroup_tex
   autocmd FileType tex noremap <buffer> <localleader>cl :hi clear Conceal<cr>
 augroup END
 
-augroup myaugroup_netrw
-  autocmd!
-  autocmd FileType netrw 
-augroup END
-
 augroup myaugroup_cpp
   autocmd!
   autocmd Filetype cpp set ts=4 sts=4 sw=4 et
@@ -340,7 +355,7 @@ augroup END
 
 augroup myaugroup_typescript
   autocmd!
-  autocmd FileType typescript set ts=2 sts=2 sw=2 et
+  autocmd FileType typescript set ts=2 sts=2 sw=2 noet
 augroup END
 
 augroup my_augroup_python
