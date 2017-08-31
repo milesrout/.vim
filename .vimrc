@@ -12,6 +12,7 @@ set nowrap
 set number
 set tildeop
 set incsearch
+set nohlsearch
 set shell=/bin/bash
 
 " Stupid syntastic shit
@@ -35,6 +36,7 @@ set noexpandtab
 " Font
 if has('gui_running')
   colorscheme base16-atelierheath
+  set background=dark
   if has('unix')
     if has('mac') || has('macunix')
       set guifont=Fantasque_Sans_Mono:h18
@@ -43,7 +45,7 @@ if has('gui_running')
       set guifont=Fantasque\ Sans\ Mono\ 14
     endif
   elseif has('win32') || has('win64')
-    " FIXME?
+    set guifont=Fantasque\ Sans\ Mono:h14
     set guifont=Menlo:h12
   endif
 else
@@ -80,7 +82,7 @@ set listchars=tab:⇥\ ,space:·
 
 " Both of these are needed for automatic indentation to work properly
 set autoindent
-set smartindent
+filetype indent plugin on
 
 " Splits
 set splitbelow
@@ -375,4 +377,9 @@ augroup END
 augroup my_augroup_html
   autocmd!
   autocmd FileType html setlocal ts=2 sts=2 sw=2 noet
+augroup END
+
+augroup my_augroup_vue
+  autocmd!
+  autocmd FileType vue.html.javascript.css set ts=2 sts=2 sw=2 et
 augroup END

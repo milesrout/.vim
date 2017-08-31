@@ -64,3 +64,6 @@
 [submodule "bundle/yajs.vim"]
 	path = bundle/yajs.vim
 	url = https://github.com/othree/yajs.vim.git
+[submodule "bundle/vim-vue"]
+	path = bundle/vim-vue
+	url = https://github.com/posva/vim-vue.git
