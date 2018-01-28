@@ -37,7 +37,7 @@ if has('gui_running')
   colorscheme base16-atelierheath
   if has('unix')
     if has('mac') || has('macunix')
-      set guifont=Menlo:h12
+      set guifont=Fantasque_Sans_Mono:h18
       set background=light
     else
       set guifont=Menlo\ 12
@@ -115,12 +115,10 @@ imap <right> <nop>
 imap <up> <nop>
 imap <down> <nop>
 
-vmap <leader>y "+y
-vmap <leader>d "+d
-nmap <leader>p "+p
-vmap <leader>p "+p
-nmap <leader>P "+P
-vmap <leader>P "+P
+map <leader>y "+y
+map <leader>d "+d
+map <leader>p "+p
+map <leader>P "+P
 
 nnoremap <leader>r   :Rex<cr>
 
@@ -318,12 +316,12 @@ augroup END
 " Language-specific autocmds
 augroup myaugroup_vimscript
   autocmd!
-  autocmd FileType vim set ts=2 sts=2 sw=2 et
+  autocmd FileType vim setlocal ts=2 sts=2 sw=2 et
 augroup END
 
 augroup myaugroup_haskell
   autocmd!
-  autocmd FileType haskell set ts=4 sts=4 sw=4 et
+  autocmd FileType haskell setlocal ts=4 sts=4 sw=4 et
   autocmd FileType haskell noremap <buffer> <localleader>si  :!stack ghci<cr>
   autocmd FileType haskell noremap <buffer> <localleader>sc  :!stack ghc %<cr>
   autocmd FileType haskell noremap <buffer> <localleader>gi  :!ghci %<cr>
@@ -340,33 +338,33 @@ augroup END
 
 augroup myaugroup_cpp
   autocmd!
-  autocmd Filetype cpp set ts=4 sts=4 sw=4 et
+  autocmd Filetype cpp setlocal ts=4 sts=4 sw=4 et
 augroup END
 
 augroup myaugroup_dcpu
   autocmd!
-  autocmd BufRead,BufNewFile *.s set filetype=dcpu
+  autocmd BufRead,BufNewFile *.s setlocal filetype=dcpu
 augroup END
 
 augroup myaugroup_javascript
   autocmd!
-  autocmd FileType javascript set ts=2 sts=2 sw=2 noet
+  autocmd FileType javascript setlocal ts=2 sts=2 sw=2 noet
 augroup END
 
 augroup myaugroup_typescript
   autocmd!
-  autocmd FileType typescript set ts=2 sts=2 sw=2 noet
+  autocmd FileType typescript setlocal ts=2 sts=2 sw=2 noet
 augroup END
 
 augroup my_augroup_python
   autocmd!
-  autocmd FileType python set ts=4 sts=4 sw=4 et
+  autocmd FileType python setlocal ts=4 sts=4 sw=4 et
 augroup END
 
 augroup my_augroup_visp
   autocmd!
   autocmd BufRead,BufNewFile *.visp set filetype=visp
-  autocmd FileType visp set ts=2 sts=2 sw=2 et
+  autocmd FileType visp setlocal ts=2 sts=2 sw=2 et
 augroup END
 
 augroup my_augroup_vim
@@ -376,5 +374,5 @@ augroup END
 
 augroup my_augroup_html
   autocmd!
-  autocmd FileType html set ts=2 sts=2 sw=2 noet
+  autocmd FileType html setlocal ts=2 sts=2 sw=2 noet
 augroup END
