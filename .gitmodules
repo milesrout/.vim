@@ -1,9 +1,9 @@
 [submodule "bundle/base16-vim"]
 	path = bundle/base16-vim
-	url = https://github.com/chriskempson/base16-vim.git
+	url = https://github.com/milesrout/base16-vim.git
 [submodule "bundle/vim-coffee-script"]
 	path = bundle/vim-coffee-script
-	url = https://github.com/kchmck/vim-coffee-script.git
+	url = https://github.com/milesrout/vim-coffee-script.git
 [submodule "bundle/dcpu16-vim-syntax"]
 	path = bundle/dcpu16-vim-syntax
 	url = https://github.com/milesrout/dcpu16-vim-syntax.git
@@ -15,7 +15,7 @@
 	url = https://github.com/tpope/vim-surround.git
 [submodule "bundle/rust.vim"]
 	path = bundle/rust.vim
-	url = https://github.com/rust-lang/rust.vim.git
+	url = https://github.com/milesrout/rust.vim.git
 [submodule "bundle/vim-fugitive"]
 	path = bundle/vim-fugitive
 	url = https://github.com/tpope/vim-fugitive.git
@@ -51,7 +51,19 @@
 	url = https://github.com/tpope/vim-flagship.git
 [submodule "bundle/swift.vim"]
 	path = bundle/swift.vim
-	url = git@github.com:keith/swift.vim.git
+	url = https://github.com/milesrout/swift.vim.git
 [submodule "bundle/vim-racket"]
 	path = bundle/vim-racket
 	url = git@github.com:milesrout/vim-racket.git
+[submodule "bundle/tabular"]
+	path = bundle/tabular
+	url = https://github.com/milesrout/tabular.git
+[submodule "bundle/yats.vim"]
+	path = bundle/yats.vim
+	url = https://github.com/milesrout/yats.vim
+[submodule "bundle/vim-syntastic"]
+	path = bundle/vim-syntastic
+	url = https://github.com/vim-syntastic/syntastic.git
+[submodule "bundle/yajs.vim"]
+	path = bundle/yajs.vim
+	url = git@github.com:othree/yajs.vim.git

@@ -1,3 +1,6 @@
+scriptencoding utf-8
+set encoding=utf-8
+
 call pathogen#infect()
 
 " General sanity
@@ -9,6 +12,19 @@ set nowrap
 set number
 set tildeop
 set incsearch
+set shell=/bin/bash
+
+" Stupid syntastic shit
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_aggregate_errors = 1
+let g:syntastic_html_tidy_ignore_errors=["<ion-", "discarding unexpected </ion-", "<spotlight-", "discarding unexpected </spotlight-", "<md-", "discarding unexpected </md-", "proprietary attribute \"md-", " proprietary attribute \"ng-"]
+
+" Syntastic checkers
+let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_python_checkers = ['flake8']
+
+"autocmd User Flags call Hoist("window", "SyntasticStatuslineFlag")
 
 " Glorious 8-space tabs master race
 set tabstop=8
@@ -18,22 +34,25 @@ set noexpandtab
 
 " Font
 if has('gui_running')
-  set background=dark
   colorscheme base16-atelierheath
   if has('unix')
     if has('mac') || has('macunix')
-      set guifont=Source\ Code\ Pro\ Medium:h16
+      set guifont=Fantasque_Sans_Mono:h18
       set background=light
     else
-      set guifont=Source\ Code\ Pro\ Medium\ 16
+      set guifont=Menlo\ 12
     endif
   elseif has('win32') || has('win64')
     " FIXME?
-    set guifont=Source\ Code\ Pro\ Medium:h16
+    set guifont=Menlo:h12
   endif
 else
-  set background=light
   colorscheme default
+  if has('vconsole')
+    set background=dark
+  else
+    set background=light
+  endif
 endif
 
 " Conceal
@@ -41,12 +60,13 @@ set conceallevel=2
 let g:tex_conceal='admg'
 
 " Mappings
-nnoremap ; :
-nnoremap : ;
-vnoremap ; :
-vnoremap : ;
-onoremap : ;
-onoremap ; :
+noremap ; :
+noremap : ;
+
+noremap j gj
+noremap k gk
+noremap gj j
+noremap gk k
 
 " Fix stupid things about vim
 set wildmode=list:longest,longest
@@ -67,9 +87,11 @@ set splitbelow
 set splitright
 
 " Get rid of those stupid files
-set nowritebackup
-set noswapfile
-set nobackup
+set backupdir=$HOME/.vim/tmp
+set directory=$HOME/.vim/tmp
+set swapfile
+set backup
+set viminfo+=%
 
 " Folding options
 set foldtext=v:folddashes.substitute(getline(v:foldstart),'/\\*\\\|\\*/\\\|{{{\\d\\=','','g')
@@ -93,42 +115,53 @@ imap <right> <nop>
 imap <up> <nop>
 imap <down> <nop>
 
-vmap <leader>y "+y
-vmap <leader>d "+d
-nmap <leader>p "+p
-vmap <leader>p "+p
-nmap <leader>P "+P
-vmap <leader>P "+P
+map <leader>y "+y
+map <leader>d "+d
+map <leader>p "+p
+map <leader>P "+P
 
-nnoremap <leader>ve   :edit $MYVIMRC<cr>
-nnoremap <leader>vs   :split $MYVIMRC<cr>
-nnoremap <leader>vv   :vsplit $MYVIMRC<cr>
-nnoremap <leader>vt   :tabedit $MYVIMRC<cr>
+nnoremap <leader>r   :Rex<cr>
 
-nnoremap <leader>bl   :set bg=light<cr>
-nnoremap <leader>bd   :set bg=dark<cr>
+noremap <leader>ve   :edit $MYVIMRC<cr>
+noremap <leader>vs   :split $MYVIMRC<cr>
+noremap <leader>vv   :vsplit $MYVIMRC<cr>
+noremap <leader>vt   :tabedit $MYVIMRC<cr>
 
-nnoremap <leader>ttw  :call ToggleTextwidth()<cr>
-nnoremap <leader>tw   :call ToggleWrap()<cr>
-nnoremap <leader>tcc  :call ToggleColorColumn()<cr>
+noremap <leader>bl   :set bg=light<cr>
+noremap <leader>bd   :set bg=dark<cr>
 
-nnoremap <leader>l    :set list!<cr>
+noremap <leader>ttw  :call ToggleTextwidth()<cr>
+noremap <leader>tw   :call ToggleWrap()<cr>
+noremap <leader>tcc  :call ToggleColorColumn()<cr>
 
-nnoremap <leader>f    :call FindByFilename()<cr>
-nnoremap <leader>F    :call FindByContent()<cr>
+noremap <leader>l    :set list!<cr>
 
-nnoremap <leader>cd   :chdir %:p:h<cr>
-nnoremap <leader>cu   :chdir ..<cr>
-nnoremap <leader>cg   :call ChangeToGitToplevel()<cr>
+noremap <leader>f    :call FindByFilename()<cr>
+noremap <leader>F    :call FindByContent()<cr>
 
-nnoremap <leader>scs  :call ConcealSplit()<cr>
+noremap <leader>cd   :chdir %:p:h<cr>
+noremap <leader>cu   :chdir ..<cr>
+noremap <leader>cg   :call ChangeToGitToplevel()<cr>
 
-nnoremap <F5>         :lprev<cr>
-nnoremap <F6>         :lnext<cr>
-nnoremap <F7>         :tabp<cr>
-nnoremap <F8>         :tabn<cr>
+noremap <leader>scs  :call ConcealSplit()<cr>
 
-nnoremap <leader>o    :on<cr>
+noremap <F2>         :caddexpr expand("%").":".line(".").":".col(".")<cr>
+noremap <F3>         :cprev<cr>
+noremap <F4>         :cnext<cr>
+noremap <F5>         :lprev<cr>
+noremap <F6>         :lnext<cr>
+noremap <F7>         :tabp<cr>
+noremap <F8>         :tabn<cr>
+noremap <F9>         :call SwitchToJavaScript()<cr>
+noremap <F10>        :call SwitchToTypeScript()<cr>
+
+noremap <leader>o    :only<cr>
+
+noremap <leader>:    :s/\(\s*\):/:\1/g<cr>
+noremap <leader>t:   :Tabular /:
+noremap <leader>t=   :Tabular /=
+noremap <leader>T:   :Tabular /:\zs
+noremap <leader>T=   :Tabular /=\zs
 
 " Glorious 8-space tabs master race
 set tabstop=8
@@ -142,6 +175,33 @@ iabbrev mysig Miles Rout <miles.rout@gmail.com>
 
 " Javascript crap
 let g:js_context_colors_enabled = 1
+
+function! SwitchToJavaScript()
+  let command = "node \"$HOME/.vim/jsts-mapper/index.js\" gen ".expand("%")." ".line(".")." ".col(".")
+  let path = system(command)
+  let [file, line, column] = split(path, ":")
+  execute 'edit' l:file
+  call cursor(line, column)
+endfunction
+
+function! SwitchToTypeScript()
+  let command = "node \"$HOME/.vim/jsts-mapper/index.js\" orig ".expand("%")." ".line(".")." ".col(".")
+  let path = system(command)
+  let [file, line, column] = split(path, ":")
+  execute 'edit' l:file
+  call cursor(line, column)
+endfunction
+
+function! Tab(char, times)
+  let pattern = "/^"
+  let i = 0
+  while i <= a:times
+    let pattern = pattern . "[^" . a:char . "]*" . a:char
+    let i = i + 1
+  endwhile
+  let command = ":Tab " . pattern . "\zs"
+  execute command
+endfunction
 
 function! FindByFilename()
   call inputsave()
@@ -161,8 +221,14 @@ function! FindByContent()
     return 1
   endif
   call inputrestore()
-  lexpr system('rg --column -nie "' . pattern . '"')
+  lexpr system('rg --column -nSe "' . pattern . '"')
   lopen
+endfunction
+
+function! MemeMode()
+  set listchars=tab:﷽\ ,space:.
+  set ts=10 sts=10 sw=10 noet
+  set list
 endfunction
 
 " Wrap crap
@@ -250,55 +316,55 @@ augroup END
 " Language-specific autocmds
 augroup myaugroup_vimscript
   autocmd!
-  autocmd FileType vim set ts=2 sts=2 sw=2 et
+  autocmd FileType vim setlocal ts=2 sts=2 sw=2 et
 augroup END
 
 augroup myaugroup_haskell
   autocmd!
-  autocmd FileType haskell set ts=4 sts=4 sw=4 et
-  autocmd FileType haskell nnoremap <buffer> <localleader>si  :!stack ghci<cr>
-  autocmd FileType haskell nnoremap <buffer> <localleader>sc  :!stack ghc %<cr>
-  autocmd FileType haskell nnoremap <buffer> <localleader>gi  :!ghci %<cr>
-  autocmd FileType haskell nnoremap <buffer> <localleader>gc  :!ghc %<cr>
-  autocmd FileType haskell nnoremap <buffer> <localleader>w   :w<cr>:!ghc %<cr>
+  autocmd FileType haskell setlocal ts=4 sts=4 sw=4 et
+  autocmd FileType haskell noremap <buffer> <localleader>si  :!stack ghci<cr>
+  autocmd FileType haskell noremap <buffer> <localleader>sc  :!stack ghc %<cr>
+  autocmd FileType haskell noremap <buffer> <localleader>gi  :!ghci %<cr>
+  autocmd FileType haskell noremap <buffer> <localleader>gc  :!ghc %<cr>
+  autocmd FileType haskell noremap <buffer> <localleader>w   :w<cr>:!ghc %<cr>
 augroup END
 
 augroup myaugroup_tex
   autocmd!
-  autocmd FileType tex nnoremap <buffer> <localleader>c  :!pdflatex %<cr>
-  autocmd FileType tex nnoremap <buffer> <localleader>w  :w<cr>:!pdflatex %<cr>
-  autocmd FileType tex nnoremap <buffer> <localleader>cl :hi clear Conceal<cr>
+  autocmd FileType tex noremap <buffer> <localleader>c  :!pdflatex %<cr>
+  autocmd FileType tex noremap <buffer> <localleader>w  :w<cr>:!pdflatex %<cr>
+  autocmd FileType tex noremap <buffer> <localleader>cl :hi clear Conceal<cr>
 augroup END
 
 augroup myaugroup_cpp
   autocmd!
-  autocmd Filetype cpp set ts=4 sts=4 sw=4 et
+  autocmd Filetype cpp setlocal ts=4 sts=4 sw=4 et
 augroup END
 
 augroup myaugroup_dcpu
   autocmd!
-  autocmd BufRead,BufNewFile *.s set filetype=dcpu
+  autocmd BufRead,BufNewFile *.s setlocal filetype=dcpu
 augroup END
 
 augroup myaugroup_javascript
   autocmd!
-  autocmd FileType javascript set ts=2 sts=2 sw=2 noet
+  autocmd FileType javascript setlocal ts=2 sts=2 sw=2 noet
 augroup END
 
 augroup myaugroup_typescript
   autocmd!
-  autocmd FileType typescript set ts=2 sts=2 sw=2 et
+  autocmd FileType typescript setlocal ts=2 sts=2 sw=2 noet
 augroup END
 
 augroup my_augroup_python
   autocmd!
-  autocmd FileType python set ts=4 sts=4 sw=4 et
+  autocmd FileType python setlocal ts=4 sts=4 sw=4 et
 augroup END
 
 augroup my_augroup_visp
   autocmd!
   autocmd BufRead,BufNewFile *.visp set filetype=visp
-  autocmd FileType visp set ts=2 sts=2 sw=2 et
+  autocmd FileType visp setlocal ts=2 sts=2 sw=2 et
 augroup END
 
 augroup my_augroup_vim
@@ -308,5 +374,5 @@ augroup END
 
 augroup my_augroup_html
   autocmd!
-  autocmd FileType html set ts=2 sts=2 sw=2 noet
+  autocmd FileType html setlocal ts=2 sts=2 sw=2 noet
 augroup END
