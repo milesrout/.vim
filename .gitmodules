@@ -52,3 +52,6 @@
 [submodule "bundle/swift.vim"]
 	path = bundle/swift.vim
 	url = git@github.com:keith/swift.vim.git
+[submodule "bundle/vim-racket"]
+	path = bundle/vim-racket
+	url = git@github.com:milesrout/vim-racket.git
