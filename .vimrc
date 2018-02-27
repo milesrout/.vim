@@ -40,7 +40,7 @@ if has('gui_running')
       set guifont=Fantasque_Sans_Mono:h18
       set background=light
     else
-      set guifont=Menlo\ 12
+      set guifont=Fantasque\ Sans\ Mono\ 14
     endif
   elseif has('win32') || has('win64')
     " FIXME?
