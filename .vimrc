@@ -107,6 +107,10 @@ set guioptions-=L
 let maplocalleader=","
 let mapleader="\\"
 
+runtime! ftplugin/man.vim
+nnoremap K :Man <cword><cr>
+let g:ft_man_open_mode = 'tab'
+
 " Disable arrow keys (to force me to use hjkl)
 map <left> <nop>
 map <right> <nop>
@@ -336,6 +340,12 @@ augroup myaugroup_tex
   autocmd FileType tex noremap <buffer> <localleader>c  :!pdflatex %<cr>
   autocmd FileType tex noremap <buffer> <localleader>w  :w<cr>:!pdflatex %<cr>
   autocmd FileType tex noremap <buffer> <localleader>cl :hi clear Conceal<cr>
+augroup END
+
+augroup myaugroup_c
+  autocmd!
+  autocmd BufRead,BufNewFile *.h set filetype=c
+  autocmd Filetype c set ts=8 sts=8 sw=8 noet
 augroup END
 
 augroup myaugroup_cpp
