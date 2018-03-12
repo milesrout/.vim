@@ -36,7 +36,7 @@ set noexpandtab
 " Font
 if has('gui_running')
   colorscheme base16-atelierheath
-  set background=dark
+  set background=light
   if has('unix')
     if has('mac') || has('macunix')
       set guifont=Fantasque_Sans_Mono:h18
@@ -103,6 +103,7 @@ set guioptions-=m
 set guioptions-=T
 set guioptions-=r
 set guioptions-=L
+set guioptions+=c
 
 let maplocalleader=","
 let mapleader="\\"
@@ -260,6 +261,22 @@ function! ToggleTextwidth()
   endif
 endfunction
 
+function! ToggleShellEscape()
+  if b:shell_escape == 0
+    let b:shell_escape = 1
+  else
+    let b:shell_escape = 0
+  endif
+endfunction
+
+function! PdfLatex()
+  if b:shell_escape == 0
+    !pdflatex %
+  else
+    !pdflatex -shell-escape %
+  endif
+endfunction
+
 " Conceal crap
 function! ConcealSplit()
   set cursorbind
@@ -337,9 +354,12 @@ augroup END
 
 augroup myaugroup_tex
   autocmd!
-  autocmd FileType tex noremap <buffer> <localleader>c  :!pdflatex %<cr>
-  autocmd FileType tex noremap <buffer> <localleader>w  :w<cr>:!pdflatex %<cr>
-  autocmd FileType tex noremap <buffer> <localleader>cl :hi clear Conceal<cr>
+  autocmd BufRead,BufNewFile *.ltx set filetype=pytex
+  autocmd FileType pytex noremap <buffer> <localleader>c  :call PdfLatex()<cr>
+  autocmd FileType pytex noremap <buffer> <localleader>w  :w<cr>:call PdfLatex()<cr>
+  autocmd FileType pytex noremap <buffer> <localleader>cl :hi clear Conceal<cr>
+  autocmd FileType pytex noremap <buffer> <localleader>se :call ToggleShellEscape()<cr>
+  autocmd FileType pytex let b:shell_escape = 0
 augroup END
 
 augroup myaugroup_c
