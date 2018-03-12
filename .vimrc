@@ -19,8 +19,7 @@ set shell=/bin/bash
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_aggregate_errors = 1
-let g:syntastic_html_tidy_ignore_errors=["<ion-", "discarding unexpected </ion-", "<spotlight-", "discarding unexpected </spotlight-", "<md-", "discarding unexpected </md-", "proprietary attribute \"md-", " proprietary attribute \"ng-"]
-
+let g:syntastic_enable_racket_racket_checker = 0
 " Syntastic checkers
 let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_python_checkers = ['flake8']
