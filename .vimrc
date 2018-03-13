@@ -20,9 +20,12 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_aggregate_errors = 1
 let g:syntastic_enable_racket_racket_checker = 0
+
 " Syntastic checkers
 let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_python_checkers = ['flake8']
+
+let g:vimtex_view_method = 'zathura'
 
 "autocmd User Flags call Hoist("window", "SyntasticStatuslineFlag")
 
