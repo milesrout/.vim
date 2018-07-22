@@ -27,7 +27,7 @@ let g:syntastic_python_checkers = ['flake8']
 
 let g:vimtex_view_method = 'zathura'
 
-"autocmd User Flags call Hoist("window", "SyntasticStatuslineFlag")
+autocmd User Flags call Hoist("window", "SyntasticStatuslineFlag")
 
 " Glorious 8-space tabs master race
 set tabstop=8
@@ -41,13 +41,12 @@ if has('gui_running')
   set background=light
   if has('unix')
     if has('mac') || has('macunix')
-      set guifont=Fantasque_Sans_Mono:h18
+      set guifont=Menlo:h18
       set background=light
     else
-      set guifont=Fantasque\ Sans\ Mono\ 14
+      set guifont=Menlo\ 12
     endif
   elseif has('win32') || has('win64')
-    set guifont=Fantasque\ Sans\ Mono:h14
     set guifont=Menlo:h12
   endif
 else
@@ -201,6 +200,8 @@ function! SwitchToTypeScript()
   call cursor(line, column)
 endfunction
 
+" Functions
+
 function! Tab(char, times)
   let pattern = "/^"
   let i = 0
@@ -352,6 +353,10 @@ augroup myaugroup_haskell
   autocmd FileType haskell noremap <buffer> <localleader>gi  :!ghci %<cr>
   autocmd FileType haskell noremap <buffer> <localleader>gc  :!ghc %<cr>
   autocmd FileType haskell noremap <buffer> <localleader>w   :w<cr>:!ghc %<cr>
+  autocmd FileType haskell noremap <buffer> <localleader>c   :GhcModCheckAndLintAsync<cr>
+  autocmd FileType haskell noremap <buffer> <localleader>fs  :GhcModSplitFunCase<cr>
+  autocmd FileType haskell noremap <buffer> <localleader>i   :GhcModInfo<cr>
+  autocmd FileType haskell noremap <buffer> <localleader>sc  :GhcModSigCodegen<cr>
 augroup END
 
 augroup myaugroup_tex
@@ -415,3 +420,6 @@ augroup my_augroup_vue
   autocmd!
   autocmd FileType vue.html.javascript.css set ts=2 sts=2 sw=2 et
 augroup END
+
+hi QuickFixLine term=reverse guibg=Grey
+hi Search       term=reverse guibg=Grey
