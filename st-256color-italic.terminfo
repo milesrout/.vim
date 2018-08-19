@@ -1,0 +1,3 @@
+st-256color-italic|st with 256 colours and italics,
+  sitm=\E[3m, ritm=E[23m,
+  use=st-256color,

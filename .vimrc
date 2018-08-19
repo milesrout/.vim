@@ -25,6 +25,8 @@ let g:syntastic_enable_racket_racket_checker = 0
 let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_python_checkers = ['flake8']
 
+let g:syntastic_c_compiler_options = "-std=c89 -W -Wall -Wno-variadic-macros"
+
 let g:vimtex_view_method = 'zathura'
 
 autocmd User Flags call Hoist("window", "SyntasticStatuslineFlag")
@@ -79,9 +81,9 @@ set backspace=indent,eol,start
 " Indentation
 set cino=b1,g0,N-s,i4
 set cinkeys=0{,0},0),:,0#,!^F,o,O,e,0=break
-set listchars=tab:⇥\ ,space:·
+set listchars=tab:⇥\ ,space:·,trail:█
 
-" Both of these are needed for automatic indentation to work properly
+" Both of these are needed for automatic indentation to work properly!
 set autoindent
 filetype indent plugin on
 
@@ -113,11 +115,17 @@ runtime! ftplugin/man.vim
 nnoremap K :Man <cword><cr>
 let g:ft_man_open_mode = 'tab'
 
+" Scroll screen around using arrow keys
+map <left> zh
+map <right> zl
+map <up> <C-y>
+map <down> <C-e>
+
+" Fix stupid default side scrolling nonsense
+set sidescrolloff=1
+set sidescroll=1
+
 " Disable arrow keys (to force me to use hjkl)
-map <left> <nop>
-map <right> <nop>
-map <up> <nop>
-map <down> <nop>
 imap <left> <nop>
 imap <right> <nop>
 imap <up> <nop>
@@ -357,6 +365,8 @@ augroup myaugroup_haskell
   autocmd FileType haskell noremap <buffer> <localleader>fs  :GhcModSplitFunCase<cr>
   autocmd FileType haskell noremap <buffer> <localleader>i   :GhcModInfo<cr>
   autocmd FileType haskell noremap <buffer> <localleader>sc  :GhcModSigCodegen<cr>
+  autocmd BufRead,BufNewFile *.cabal set filetype=cabal
+  autocmd FileType cabal   setlocal et
 augroup END
 
 augroup myaugroup_tex
@@ -373,6 +383,7 @@ augroup myaugroup_c
   autocmd!
   autocmd BufRead,BufNewFile *.h set filetype=c
   autocmd Filetype c set ts=8 sts=8 sw=8 noet
+  autocmd Filetype c noremap <buffer> <localleader>s        :SyntasticCheck gcc<cr>:Errors<cr>
 augroup END
 
 augroup myaugroup_cpp
@@ -398,6 +409,7 @@ augroup END
 augroup my_augroup_python
   autocmd!
   autocmd FileType python setlocal ts=4 sts=4 sw=4 et
+  autocmd FileType python setlocal makeprg=python3\ -i\ %
 augroup END
 
 augroup my_augroup_visp
@@ -421,5 +433,6 @@ augroup my_augroup_vue
   autocmd FileType vue.html.javascript.css set ts=2 sts=2 sw=2 et
 augroup END
 
-hi QuickFixLine term=reverse guibg=Grey
-hi Search       term=reverse guibg=Grey
+hi QuickFixLine cterm=reverse guibg=Grey
+hi Search       cterm=reverse guibg=Grey
+hi Comment      cterm=italic  gui=italic
