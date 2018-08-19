@@ -133,6 +133,7 @@ noremap <leader>bd   :set bg=dark<cr>
 noremap <leader>ttw  :call ToggleTextwidth()<cr>
 noremap <leader>tw   :call ToggleWrap()<cr>
 noremap <leader>tcc  :call ToggleColorColumn()<cr>
+noremap <leader>tr   :set relativenumber!<cr>
 
 noremap <leader>l    :set list!<cr>
 
@@ -336,6 +337,13 @@ augroup myaugroup_tex
   autocmd FileType tex noremap <buffer> <localleader>cl :hi clear Conceal<cr>
 augroup END
 
+augroup myaugroup_c
+  autocmd!
+  autocmd BufRead,BufNewFile *.h setlocal filetype=c
+  autocmd BufRead,BufNewFile *.c setlocal filetype=c
+  autocmd Filetype c setlocal ts=8 sts=8 sw=8 noet
+augroup END
+
 augroup myaugroup_cpp
   autocmd!
   autocmd Filetype cpp setlocal ts=4 sts=4 sw=4 et
@@ -359,6 +367,7 @@ augroup END
 augroup my_augroup_python
   autocmd!
   autocmd FileType python setlocal ts=4 sts=4 sw=4 et
+  autocmd FileType python noremap <buffer> <localleader>i  :!python3 -i %<cr>
 augroup END
 
 augroup my_augroup_visp
