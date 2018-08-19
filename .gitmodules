@@ -66,4 +66,19 @@
 	url = https://github.com/vim-syntastic/syntastic.git
 [submodule "bundle/yajs.vim"]
 	path = bundle/yajs.vim
-	url = git@github.com:othree/yajs.vim.git
+	url = https://github.com/othree/yajs.vim.git
+[submodule "bundle/vim-vue"]
+	path = bundle/vim-vue
+	url = https://github.com/posva/vim-vue.git
+[submodule "bundle/vim-racket"]
+	path = bundle/vim-racket
+	url = https://github.com/wlangstroth/vim-racket.git
+[submodule "bundle/vimtex"]
+	path = bundle/vimtex
+	url = https://github.com/lervag/vimtex
+[submodule "bundle/ghcmod-vim"]
+	path = bundle/ghcmod-vim
+	url = https://github.com/eagletmt/ghcmod-vim
+[submodule "bundle/vimproc.vim"]
+	path = bundle/vimproc.vim
+	url = https://github.com/Shougo/vimproc.vim

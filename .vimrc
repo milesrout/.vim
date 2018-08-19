@@ -12,19 +12,22 @@ set nowrap
 set number
 set tildeop
 set incsearch
+set nohlsearch
 set shell=/bin/bash
 
 " Stupid syntastic shit
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_aggregate_errors = 1
-let g:syntastic_html_tidy_ignore_errors=["<ion-", "discarding unexpected </ion-", "<spotlight-", "discarding unexpected </spotlight-", "<md-", "discarding unexpected </md-", "proprietary attribute \"md-", " proprietary attribute \"ng-"]
+let g:syntastic_enable_racket_racket_checker = 0
 
 " Syntastic checkers
 let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_python_checkers = ['flake8']
 
-"autocmd User Flags call Hoist("window", "SyntasticStatuslineFlag")
+let g:vimtex_view_method = 'zathura'
+
+autocmd User Flags call Hoist("window", "SyntasticStatuslineFlag")
 
 " Glorious 8-space tabs master race
 set tabstop=8
@@ -35,15 +38,15 @@ set noexpandtab
 " Font
 if has('gui_running')
   colorscheme base16-atelierheath
+  set background=light
   if has('unix')
     if has('mac') || has('macunix')
-      set guifont=Fantasque_Sans_Mono:h18
+      set guifont=Menlo:h18
       set background=light
     else
       set guifont=Menlo\ 12
     endif
   elseif has('win32') || has('win64')
-    " FIXME?
     set guifont=Menlo:h12
   endif
 else
@@ -80,7 +83,7 @@ set listchars=tab:⇥\ ,space:·
 
 " Both of these are needed for automatic indentation to work properly
 set autoindent
-set smartindent
+filetype indent plugin on
 
 " Splits
 set splitbelow
@@ -101,9 +104,14 @@ set guioptions-=m
 set guioptions-=T
 set guioptions-=r
 set guioptions-=L
+set guioptions+=c
 
 let maplocalleader=","
 let mapleader="\\"
+
+runtime! ftplugin/man.vim
+nnoremap K :Man <cword><cr>
+let g:ft_man_open_mode = 'tab'
 
 " Disable arrow keys (to force me to use hjkl)
 map <left> <nop>
@@ -193,6 +201,8 @@ function! SwitchToTypeScript()
   call cursor(line, column)
 endfunction
 
+" Functions
+
 function! Tab(char, times)
   let pattern = "/^"
   let i = 0
@@ -252,6 +262,22 @@ function! ToggleTextwidth()
     call ColorColumnOn()
     set tw=0
     set wrap
+  endif
+endfunction
+
+function! ToggleShellEscape()
+  if b:shell_escape == 0
+    let b:shell_escape = 1
+  else
+    let b:shell_escape = 0
+  endif
+endfunction
+
+function! PdfLatex()
+  if b:shell_escape == 0
+    !pdflatex %
+  else
+    !pdflatex -shell-escape %
   endif
 endfunction
 
@@ -328,13 +354,26 @@ augroup myaugroup_haskell
   autocmd FileType haskell noremap <buffer> <localleader>gi  :!ghci %<cr>
   autocmd FileType haskell noremap <buffer> <localleader>gc  :!ghc %<cr>
   autocmd FileType haskell noremap <buffer> <localleader>w   :w<cr>:!ghc %<cr>
+  autocmd FileType haskell noremap <buffer> <localleader>c   :GhcModCheckAndLintAsync<cr>
+  autocmd FileType haskell noremap <buffer> <localleader>fs  :GhcModSplitFunCase<cr>
+  autocmd FileType haskell noremap <buffer> <localleader>i   :GhcModInfo<cr>
+  autocmd FileType haskell noremap <buffer> <localleader>sc  :GhcModSigCodegen<cr>
 augroup END
 
 augroup myaugroup_tex
   autocmd!
-  autocmd FileType tex noremap <buffer> <localleader>c  :!pdflatex %<cr>
-  autocmd FileType tex noremap <buffer> <localleader>w  :w<cr>:!pdflatex %<cr>
-  autocmd FileType tex noremap <buffer> <localleader>cl :hi clear Conceal<cr>
+  autocmd BufRead,BufNewFile *.ltx set filetype=pytex
+  autocmd FileType pytex noremap <buffer> <localleader>c  :call PdfLatex()<cr>
+  autocmd FileType pytex noremap <buffer> <localleader>w  :w<cr>:call PdfLatex()<cr>
+  autocmd FileType pytex noremap <buffer> <localleader>cl :hi clear Conceal<cr>
+  autocmd FileType pytex noremap <buffer> <localleader>se :call ToggleShellEscape()<cr>
+  autocmd FileType pytex let b:shell_escape = 0
+augroup END
+
+augroup myaugroup_c
+  autocmd!
+  autocmd BufRead,BufNewFile *.h set filetype=c
+  autocmd Filetype c set ts=8 sts=8 sw=8 noet
 augroup END
 
 augroup myaugroup_c
@@ -385,3 +424,11 @@ augroup my_augroup_html
   autocmd!
   autocmd FileType html setlocal ts=2 sts=2 sw=2 noet
 augroup END
+
+augroup my_augroup_vue
+  autocmd!
+  autocmd FileType vue.html.javascript.css set ts=2 sts=2 sw=2 et
+augroup END
+
+hi QuickFixLine term=reverse guibg=Grey
+hi Search       term=reverse guibg=Grey
