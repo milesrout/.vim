@@ -79,7 +79,6 @@ set backspace=indent,eol,start
 " Indentation
 set cino=b1,g0,N-s,i4
 set cinkeys=0{,0},0),:,0#,!^F,o,O,e,0=break
-set listchars=tab:⇥\ ,space:·
 
 " Both of these are needed for automatic indentation to work properly
 set autoindent
