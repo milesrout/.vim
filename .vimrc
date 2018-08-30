@@ -348,7 +348,10 @@ augroup myaugroup_reload_vimrc
   autocmd BufWritePost $MYVIMRC call SetVimscriptIndents()
 augroup END
 
-" Language-specific autocmds
+augroup myaugroup_crontab
+  autocmd BufRead,BufNewFile .crontab set filetype=crontab
+augroup END
+
 augroup myaugroup_vimscript
   autocmd!
   autocmd FileType vim setlocal ts=2 sts=2 sw=2 et
