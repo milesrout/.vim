@@ -45,9 +45,6 @@ set softtabstop=8
 set shiftwidth=8
 set noexpandtab
 
-" Font
-"see end of file
-
 " Conceal
 set conceallevel=2
 let g:tex_conceal='admg'
@@ -392,5 +389,5 @@ hi QuickFixLine cterm=reverse guibg=Grey
 hi Search       cterm=reverse guibg=Grey
 hi Comment      cterm=italic  gui=italic
 
-colorscheme dim
+colors default
 set background=dark
