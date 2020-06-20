@@ -1,5 +1,11 @@
 scriptencoding utf-8
 set encoding=utf-8
+set nocompatible
+set directory=$XDG_CONFIG_HOME/vim/tmp
+set backupdir=$XDG_CONFIG_HOME/vim/tmp
+set viminfo+=%,n$XDG_CONFIG_HOME/vim/viminfo
+set runtimepath+=$XDG_CONFIG_HOME/vim,$XDG_CONFIG_HOME/vim/after,$VIM,$VIMRUNTIME
+let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc"
 
 call pathogen#infect()
 
@@ -7,7 +13,6 @@ call pathogen#infect()
 syntax on
 set textwidth=0
 set colorcolumn=80
-set nocompatible
 set nowrap
 set number
 set tildeop
@@ -92,11 +97,8 @@ set splitbelow
 set splitright
 
 " Get rid of those stupid files
-set backupdir=$HOME/.vim/tmp
-set directory=$HOME/.vim/tmp
 set swapfile
 set backup
-set viminfo+=%
 
 " Folding options
 set foldtext=v:folddashes.substitute(getline(v:foldstart),'/\\*\\\|\\*/\\\|{{{\\d\\=','','g')
