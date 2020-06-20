@@ -1,9 +1,11 @@
 scriptencoding utf-8
 set encoding=utf-8
 set nocompatible
-set directory=$XDG_CONFIG_HOME/vim/tmp
-set backupdir=$XDG_CONFIG_HOME/vim/tmp
-set viminfo+=%,n$XDG_CONFIG_HOME/vim/viminfo
+set directory=$XDG_DATA_HOME/vim/swap
+set backupdir=$XDG_DATA_HOME/vim/backup
+set undodir=$XDG_DATA_HOME/vim/undo
+set viewdir=$XDG_DATA_HOME/vim/view
+set viminfo+=%,n$XDG_DATA_HOME/vim/viminfo
 set runtimepath+=$XDG_CONFIG_HOME/vim,$XDG_CONFIG_HOME/vim/after,$VIM,$VIMRUNTIME
 let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc"
 
