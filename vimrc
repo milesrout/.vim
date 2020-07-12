@@ -1,13 +1,13 @@
 scriptencoding utf-8
 set encoding=utf-8
 set nocompatible
-set directory=$XDG_DATA_HOME/vim/swap
-set backupdir=$XDG_DATA_HOME/vim/backup
-set undodir=$XDG_DATA_HOME/vim/undo
-set viewdir=$XDG_DATA_HOME/vim/view
-set viminfo+=%,n$XDG_DATA_HOME/vim/viminfo
-set runtimepath+=$XDG_CONFIG_HOME/vim,$XDG_CONFIG_HOME/vim/after,$VIM,$VIMRUNTIME
-let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc"
+set directory=~/.local/share/vim/swap
+set backupdir=~/.local/share/vim/backup
+set undodir=~/.local/share/vim/undo
+set viewdir=~/.local/share/vim/view
+set viminfo+=%,n~/.local/share/vim/viminfo
+set runtimepath+=~/.config/vim,~/.config/vim/after,$VIM,$VIMRUNTIME
+let $MYVIMRC="~/.config/vim/vimrc"
 
 call pathogen#infect()
 
@@ -88,7 +88,7 @@ set backspace=indent,eol,start
 " Indentation
 set cino=b1,g0,N-s,i4
 set cinkeys=0{,0},0),:,0#,!^F,o,O,e,0=break
-set listchars=tab:⇥\ ,space:·,trail:█
+set listchars=tab:⇥\ ,trail:█,space:·
 
 " Both of these are needed for automatic indentation to work properly!
 set autoindent
@@ -101,6 +101,7 @@ set splitright
 " Get rid of those stupid files
 set swapfile
 set backup
+let g:netrw_home="~/.local/share/netrw"
 
 " Folding options
 set foldtext=v:folddashes.substitute(getline(v:foldstart),'/\\*\\\|\\*/\\\|{{{\\d\\=','','g')
@@ -346,7 +347,7 @@ function! ChangeToGitToplevel()
 endfunction
 
 " General autocmds
-augroup myaugroup_reload_vimrc 
+augroup myaugroup_reload_vimrc
   autocmd!
   autocmd BufWritePost $MYVIMRC source $MYVIMRC
   autocmd BufWritePost $MYVIMRC call SetVimscriptIndents()
@@ -452,3 +453,6 @@ augroup END
 hi QuickFixLine cterm=reverse guibg=Grey
 hi Search       cterm=reverse guibg=Grey
 hi Comment      cterm=italic  gui=italic
+
+colorscheme dim
+set background=dark

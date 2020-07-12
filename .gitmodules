@@ -82,3 +82,12 @@
 [submodule "bundle/vimproc.vim"]
 	path = bundle/vimproc.vim
 	url = https://github.com/Shougo/vimproc.vim
+[submodule "bundle/wal.vim"]
+	path = bundle/wal.vim
+	url = https://github.com/dylanaraps/wal.vim
+[submodule "bundle/vim-mbsync"]
+	path = bundle/vim-mbsync
+	url = https://github.com/chunkhang/vim-mbsync
+[submodule "bundle/vim-dim"]
+	path = bundle/vim-dim
+	url = https://github.com/jeffkreeftmeijer/vim-dim.git
