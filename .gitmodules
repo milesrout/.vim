@@ -82,3 +82,9 @@
 [submodule "bundle/vim-css-color"]
 	path = bundle/vim-css-color
 	url = git@github.com:milesrout/vim-css-color
+[submodule "bundle/vim-radical"]
+	path = bundle/vim-radical
+	url = https://github.com/glts/vim-radical.git
+[submodule "bundle/vim-speeddating"]
+	path = bundle/vim-speeddating
+	url = https://github.com/tpope/vim-speeddating.git
