@@ -73,9 +73,6 @@
 [submodule "bundle/vim-mbsync"]
 	path = bundle/vim-mbsync
 	url = https://github.com/chunkhang/vim-mbsync
-[submodule "bundle/vim-dim"]
-	path = bundle/vim-dim
-	url = https://github.com/jeffkreeftmeijer/vim-dim.git
 [submodule "bundle/vim-startuptime"]
 	path = bundle/vim-startuptime
 	url = https://github.com/dstein64/vim-startuptime

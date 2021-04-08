@@ -45,27 +45,7 @@ set shiftwidth=8
 set noexpandtab
 
 " Font
-if has('gui_running')
-  colorscheme base16-atelierheath
-  set background=light
-  if has('unix')
-    if has('mac') || has('macunix')
-      set guifont=Menlo:h18
-      set background=light
-    else
-      set guifont=Menlo\ 12
-    endif
-  elseif has('win32') || has('win64')
-    set guifont=Menlo:h12
-  endif
-else
-  colorscheme default
-  if has('vconsole')
-    set background=dark
-  else
-    set background=light
-  endif
-endif
+"see end of file
 
 " Conceal
 set conceallevel=2
@@ -454,5 +434,5 @@ hi QuickFixLine cterm=reverse guibg=Grey
 hi Search       cterm=reverse guibg=Grey
 hi Comment      cterm=italic  gui=italic
 
-colorscheme dim
+colorscheme default
 set background=dark
