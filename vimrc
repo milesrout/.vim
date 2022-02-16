@@ -99,7 +99,7 @@ let mapleader="\\"
 
 runtime! ftplugin/man.vim
 nnoremap K :Man <cword><cr>
-let g:ft_man_open_mode = 'tab'
+let g:ft_man_open_mode = 'vert'
 
 " Scroll screen around using arrow keys
 map <left> zh
@@ -161,8 +161,9 @@ noremap <F10>        :call SwitchToTypeScript()<cr>
 noremap <leader>o    :only<cr>
 
 noremap <leader>:    :s/\(\s*\):/:\1/g<cr>
-noremap <leader>t:   :Tabular /:
-noremap <leader>t=   :Tabular /=
+noremap <leader>=    :s/\(\s*\)=/=\1/g<cr>
+noremap <leader>t:   :Tabular /^[^:]*\zs:
+noremap <leader>t=   :Tabular /^[^=]*\zs=
 noremap <leader>T:   :Tabular /:\zs
 noremap <leader>T=   :Tabular /=\zs
 
@@ -391,5 +392,5 @@ hi QuickFixLine cterm=reverse guibg=Grey
 hi Search       cterm=reverse guibg=Grey
 hi Comment      cterm=italic  gui=italic
 
-colorscheme default
+colorscheme dim
 set background=dark
