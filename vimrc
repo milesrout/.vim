@@ -33,6 +33,7 @@ let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_python_checkers = ['flake8']
 
 let g:syntastic_c_compiler_options = "-std=c89 -W -Wall -Wno-variadic-macros"
+let g:syntastic_c_config_file = ".syntastic_c_config"
 
 let g:vimtex_view_method = 'zathura'
 
@@ -337,69 +338,25 @@ augroup myaugroup_crontab
   autocmd BufRead,BufNewFile .crontab set filetype=crontab
 augroup END
 
-augroup myaugroup_vimscript
-  autocmd!
-  autocmd FileType vim setlocal ts=2 sts=2 sw=2 et
-augroup END
-
 augroup myaugroup_haskell
   autocmd!
-  autocmd FileType haskell setlocal ts=4 sts=4 sw=4 et
-  autocmd FileType haskell noremap <buffer> <localleader>si  :!stack ghci<cr>
-  autocmd FileType haskell noremap <buffer> <localleader>sc  :!stack ghc %<cr>
-  autocmd FileType haskell noremap <buffer> <localleader>gi  :!ghci %<cr>
-  autocmd FileType haskell noremap <buffer> <localleader>gc  :!ghc %<cr>
-  autocmd FileType haskell noremap <buffer> <localleader>w   :w<cr>:!ghc %<cr>
-  autocmd FileType haskell noremap <buffer> <localleader>c   :GhcModCheckAndLintAsync<cr>
-  autocmd FileType haskell noremap <buffer> <localleader>fs  :GhcModSplitFunCase<cr>
-  autocmd FileType haskell noremap <buffer> <localleader>i   :GhcModInfo<cr>
-  autocmd FileType haskell noremap <buffer> <localleader>sc  :GhcModSigCodegen<cr>
   autocmd BufRead,BufNewFile *.cabal set filetype=cabal
-  autocmd FileType cabal   setlocal et
 augroup END
 
 augroup myaugroup_tex
   autocmd!
   autocmd BufRead,BufNewFile *.ltx set filetype=pytex
-  autocmd FileType pytex noremap <buffer> <localleader>c  :call PdfLatex()<cr>
-  autocmd FileType pytex noremap <buffer> <localleader>w  :w<cr>:call PdfLatex()<cr>
-  autocmd FileType pytex noremap <buffer> <localleader>cl :hi clear Conceal<cr>
-  autocmd FileType pytex noremap <buffer> <localleader>se :call ToggleShellEscape()<cr>
-  autocmd FileType pytex let b:shell_escape = 0
-augroup END
-
-augroup myaugroup_c
-  autocmd!
-  autocmd BufRead,BufNewFile *.h set filetype=c
-  autocmd Filetype c set ts=8 sts=8 sw=8 noet
-  autocmd Filetype c noremap <buffer> <localleader>s        :SyntasticCheck gcc<cr>:Errors<cr>
 augroup END
 
 augroup myaugroup_c
   autocmd!
   autocmd BufRead,BufNewFile *.h setlocal filetype=c
   autocmd BufRead,BufNewFile *.c setlocal filetype=c
-  autocmd Filetype c setlocal ts=8 sts=8 sw=8 noet
-augroup END
-
-augroup myaugroup_cpp
-  autocmd!
-  autocmd Filetype cpp setlocal ts=4 sts=4 sw=4 et
 augroup END
 
 augroup myaugroup_dcpu
   autocmd!
   autocmd BufRead,BufNewFile *.s setlocal filetype=dcpu
-augroup END
-
-augroup myaugroup_javascript
-  autocmd!
-  autocmd FileType javascript setlocal ts=2 sts=2 sw=2 noet
-augroup END
-
-augroup myaugroup_typescript
-  autocmd!
-  autocmd FileType typescript setlocal ts=2 sts=2 sw=2 noet
 augroup END
 
 augroup my_augroup_python
@@ -409,21 +366,21 @@ augroup my_augroup_python
   autocmd FileType python noremap <buffer> <localleader>i  :!python3 -i %<cr>
 augroup END
 
+augroup my_augroup_verilog
+  autocmd!
+  autocmd FileType verilog setlocal ts=2 sts=2 sw=2 et
+augroup END
+
 augroup my_augroup_visp
   autocmd!
   autocmd BufRead,BufNewFile *.visp set filetype=visp
   autocmd FileType visp setlocal ts=2 sts=2 sw=2 et
 augroup END
 
-augroup my_augroup_vim
-  autocmd!
-  autocmd FileType vim call SetVimscriptIndents()
-augroup END
-
-augroup my_augroup_html
-  autocmd!
-  autocmd FileType html setlocal ts=2 sts=2 sw=2 noet
-augroup END
+"augroup my_augroup_vim
+  "autocmd!
+  "autocmd FileType vim call SetVimscriptIndents()
+"augroup END
 
 augroup my_augroup_vue
   autocmd!
