@@ -91,9 +91,6 @@
 [submodule "bundle/hare.vim"]
 	path = bundle/hare.vim
 	url = git@git.sr.ht:~sircmpwn/hare.vim
-[submodule "bundle/vim-dim"]
-	path = bundle/vim-dim
-	url = https://github.com/jeffkreeftmeijer/vim-dim
 [submodule "bundle/vim-textobj-function"]
 	path = bundle/vim-textobj-function
 	url = git@github.com:kana/vim-textobj-function
