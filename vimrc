@@ -161,8 +161,10 @@ noremap <leader>o    :only<cr>
 
 noremap <leader>:    :s/\(\s*\):/:\1/g<cr>
 noremap <leader>=    :s/\(\s*\)=/=\1/g<cr>
+noremap <leader>t\   :Tabular /^[^\\]*\zs\\
 noremap <leader>t:   :Tabular /^[^:]*\zs:
 noremap <leader>t=   :Tabular /^[^=]*\zs=
+noremap <leader>T\   :Tabular /\\\zs
 noremap <leader>T:   :Tabular /:\zs
 noremap <leader>T=   :Tabular /=\zs
 
