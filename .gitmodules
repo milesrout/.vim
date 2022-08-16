@@ -78,7 +78,7 @@
 	url = https://github.com/ap/vim-css-color
 [submodule "bundle/vim-radical"]
 	path = bundle/vim-radical
-	url = https://github.com/glts/vim-radical.git
+	url = https://github.com/milesrout/vim-radical.git
 [submodule "bundle/vim-speeddating"]
 	path = bundle/vim-speeddating
 	url = https://github.com/tpope/vim-speeddating.git
@@ -97,3 +97,12 @@
 [submodule "bundle/vim-obsession"]
 	path = bundle/vim-obsession
 	url = https://github.com/tpope/vim-obsession
+[submodule "bundle/vim-magnum"]
+	path = bundle/vim-magnum
+	url = https://github.com/glts/vim-magnum
+[submodule "bundle/vim-rsi"]
+	path = bundle/vim-rsi
+	url = https://github.com/tpope/vim-rsi
+[submodule "bundle/vim-sleuth"]
+	path = bundle/vim-sleuth
+	url = https://github.com/tpope/vim-sleuth
