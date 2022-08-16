@@ -38,6 +38,7 @@ let g:syntastic_c_config_file = ".syntastic_c_config"
 let g:vimtex_view_method = 'zathura'
 
 autocmd User Flags call Hoist("window", "SyntasticStatuslineFlag")
+set statusline += "%{ObsessionStatus()}"
 
 " Glorious 8-space tabs master race
 set tabstop=8
@@ -76,9 +77,10 @@ filetype indent plugin on
 set splitbelow
 set splitright
 
-" Get rid of those stupid files
+" Enable persistence features
 set swapfile
 set backup
+set undofile
 let g:netrw_home="~/.local/share/netrw"
 
 " Folding options
