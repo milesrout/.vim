@@ -32,7 +32,7 @@ let g:syntastic_enable_racket_racket_checker = 0
 let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_python_checkers = ['flake8']
 
-let g:syntastic_c_compiler_options = "-std=c89 -Wall -Wno-variadic-macros"
+let g:syntastic_c_compiler_options = "-std=c89 -Wall -Wno-unused-variable -Wno-variadic-macros"
 let g:syntastic_c_config_file = ".syntastic_c_config"
 
 let g:vimtex_view_method = 'zathura'
