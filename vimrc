@@ -154,8 +154,6 @@ noremap <F5>         :lprev<cr>
 noremap <F6>         :lnext<cr>
 noremap <F7>         :tabp<cr>
 noremap <F8>         :tabn<cr>
-noremap <F9>         :call SwitchToJavaScript()<cr>
-noremap <F10>        :call SwitchToTypeScript()<cr>
 
 noremap <leader>o    :only<cr>
 
@@ -178,27 +176,7 @@ set noexpandtab
 iabbrev myemail miles.rout@gmail.com
 iabbrev mysig Miles Rout <miles.rout@gmail.com>
 
-" Javascript crap
-let g:js_context_colors_enabled = 1
-
-function! SwitchToJavaScript()
-  let command = "node \"$HOME/.vim/jsts-mapper/index.js\" gen ".expand("%")." ".line(".")." ".col(".")
-  let path = system(command)
-  let [file, line, column] = split(path, ":")
-  execute 'edit' l:file
-  call cursor(line, column)
-endfunction
-
-function! SwitchToTypeScript()
-  let command = "node \"$HOME/.vim/jsts-mapper/index.js\" orig ".expand("%")." ".line(".")." ".col(".")
-  let path = system(command)
-  let [file, line, column] = split(path, ":")
-  execute 'edit' l:file
-  call cursor(line, column)
-endfunction
-
 " Functions
-
 function! Tab(char, times)
   let pattern = "/^"
   let i = 0
@@ -230,12 +208,6 @@ function! FindByContent()
   call inputrestore()
   lexpr system('rg --column -nSe "' . pattern . '"')
   lopen
-endfunction
-
-function! MemeMode()
-  set listchars=tab:﷽\ ,space:.
-  set ts=10 sts=10 sw=10 noet
-  set list
 endfunction
 
 " Wrap crap
@@ -377,16 +349,6 @@ augroup my_augroup_visp
   autocmd!
   autocmd BufRead,BufNewFile *.visp set filetype=visp
   autocmd FileType visp setlocal ts=2 sts=2 sw=2 et
-augroup END
-
-"augroup my_augroup_vim
-  "autocmd!
-  "autocmd FileType vim call SetVimscriptIndents()
-"augroup END
-
-augroup my_augroup_vue
-  autocmd!
-  autocmd FileType vue.html.javascript.css set ts=2 sts=2 sw=2 et
 augroup END
 
 hi QuickFixLine cterm=reverse guibg=Grey
