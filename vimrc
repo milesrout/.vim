@@ -10,6 +10,7 @@ set runtimepath+=~/.config/vim,~/.config/vim/after,$VIM,$VIMRUNTIME
 let $MYVIMRC="~/.config/vim/vimrc"
 
 call pathogen#infect()
+packadd! matchit
 
 " General sanity
 syntax on
@@ -37,14 +38,28 @@ let g:syntastic_c_config_file = ".syntastic_c_config"
 
 let g:vimtex_view_method = 'zathura'
 
-autocmd User Flags call Hoist("window", "SyntasticStatuslineFlag")
-set statusline += "%{ObsessionStatus()}"
-
 " Glorious 8-space tabs master race
 set tabstop=8
 set softtabstop=8
 set shiftwidth=8
 set noexpandtab
+
+" Airline
+let g:airline_detect_modified=1
+let g:airline_detect_paste=1
+let g:airline_detect_crypt=1
+let g:airline_detect_spell=1
+let g:airline_detect_spelllang=1
+let g:airline_powerline_fonts=1
+let g:airline#extensions#tabline#enabled=1
+let g:airline#extensions#tabline#show_buffers=1
+let g:airline#extensions#whitespace#mixed_indent_algo=2
+let g:airline#extensions#syntastic#enabled=1
+let g:airline#extensions#hunks#enabled=1
+let g:airline#extensions#obsession#enabled=1
+
+" GDB
+packadd termdebug
 
 " Conceal
 set conceallevel=2
@@ -58,6 +73,22 @@ noremap j gj
 noremap k gk
 noremap gj j
 noremap gk k
+
+let g:textobj_functioncall_no_default_key_mappings = 1
+xmap iC <Plug>(textobj-functioncall-i)
+omap iC <Plug>(textobj-functioncall-i)
+xmap aC <Plug>(textobj-functioncall-a)
+omap aC <Plug>(textobj-functioncall-a)
+
+let g:textobj_function_no_default_key_mappings = 1
+xmap if <Plug>(textobj-function-i)
+omap if <Plug>(textobj-function-i)
+xmap af <Plug>(textobj-function-a)
+omap af <Plug>(textobj-function-a)
+xmap iF <Plug>(textobj-function-I)
+omap iF <Plug>(textobj-function-I)
+xmap aF <Plug>(textobj-function-A)
+omap aF <Plug>(textobj-function-A)
 
 " Fix stupid things about vim
 set wildmode=list:longest,longest
@@ -157,14 +188,18 @@ noremap <F8>         :tabn<cr>
 
 noremap <leader>o    :only<cr>
 
+noremap <leader>\    :s/\(\s*\)\\/\\\1/g<cr>
 noremap <leader>:    :s/\(\s*\):/:\1/g<cr>
 noremap <leader>=    :s/\(\s*\)=/=\1/g<cr>
+noremap <leader>,    :s/\(\s*\),/,\1/g<cr>
 noremap <leader>t\   :Tabular /^[^\\]*\zs\\
 noremap <leader>t:   :Tabular /^[^:]*\zs:
 noremap <leader>t=   :Tabular /^[^=]*\zs=
+noremap <leader>t,   :Tabular /^[^,]*\zs,
 noremap <leader>T\   :Tabular /\\\zs
 noremap <leader>T:   :Tabular /:\zs
 noremap <leader>T=   :Tabular /=\zs
+noremap <leader>T,   :Tabular /,\zs
 
 " Glorious 8-space tabs master race
 set tabstop=8
@@ -326,6 +361,14 @@ augroup myaugroup_c
   autocmd!
   autocmd BufRead,BufNewFile *.h setlocal filetype=c
   autocmd BufRead,BufNewFile *.c setlocal filetype=c
+  autocmd FileType c nnoremap <buffer> <localleader>r  :Run<cr>
+  autocmd FileType c nnoremap <buffer> <localleader>s  :Step<cr>
+  autocmd FileType c nnoremap <buffer> <localleader>o  :Over<cr>
+  autocmd FileType c nnoremap <buffer> <localleader>f  :Finish<cr>
+  autocmd FileType c nnoremap <buffer> <localleader>c  :Continue<cr>
+  autocmd FileType c nnoremap <buffer> <localleader>S  :Stop<cr>
+  autocmd FileType c nnoremap <buffer> <localleader>b  :Break<cr>
+  autocmd FileType c nnoremap <buffer> <localleader>e  :Evaluate<Space>
 augroup END
 
 augroup myaugroup_dcpu
@@ -351,9 +394,14 @@ augroup my_augroup_visp
   autocmd FileType visp setlocal ts=2 sts=2 sw=2 et
 augroup END
 
+let g:base16_shell_path="$HOME/colors/base16-shell/scripts/"
+if filereadable(expand("~/.vimrc_background"))
+  let base16colorspace=256
+  source ~/.vimrc_background
+endif
+let g:airline_theme=substitute(g:colors_name, "-", "_", "g")
+set guifont="DejaVu Sans Mono 12"
+
 hi QuickFixLine cterm=reverse guibg=Grey
 hi Search       cterm=reverse guibg=Grey
 hi Comment      cterm=italic  gui=italic
-
-colorscheme default
-set background=dark

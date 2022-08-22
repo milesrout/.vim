@@ -43,9 +43,6 @@
 [submodule "bundle/vim-abolish"]
 	path = bundle/vim-abolish
 	url = https://github.com/tpope/vim-abolish.git
-[submodule "bundle/vim-flagship"]
-	path = bundle/vim-flagship
-	url = https://github.com/tpope/vim-flagship.git
 [submodule "bundle/tabular"]
 	path = bundle/tabular
 	url = https://github.com/godlygeek/tabular.git
@@ -78,7 +75,8 @@
 	url = https://github.com/ap/vim-css-color
 [submodule "bundle/vim-radical"]
 	path = bundle/vim-radical
-	url = https://github.com/milesrout/vim-radical.git
+	url = https://github.com/glts/vim-radical.git
+	ignore = untracked
 [submodule "bundle/vim-speeddating"]
 	path = bundle/vim-speeddating
 	url = https://github.com/tpope/vim-speeddating.git
@@ -91,6 +89,7 @@
 [submodule "bundle/vim-textobj-function"]
 	path = bundle/vim-textobj-function
 	url = https://github.com/kana/vim-textobj-function
+	ignore = untracked
 [submodule "bundle/vim-textobj-user"]
 	path = bundle/vim-textobj-user
 	url = https://github.com/kana/vim-textobj-user
@@ -106,3 +105,25 @@
 [submodule "bundle/vim-sleuth"]
 	path = bundle/vim-sleuth
 	url = https://github.com/tpope/vim-sleuth
+[submodule "bundle/vim-airline"]
+	path = bundle/vim-airline
+	url = https://github.com/vim-airline/vim-airline
+[submodule "bundle/vim-airline-themes"]
+	path = bundle/vim-airline-themes
+	url = https://github.com/vim-airline/vim-airline-themes
+[submodule "bundle/vim-gitgutter"]
+	path = bundle/vim-gitgutter
+	url = https://github.com/airblade/vim-gitgutter
+[submodule "bundle/vim-sandwich"]
+	path = bundle/vim-sandwich
+	url = https://github.com/machakann/vim-sandwich
+[submodule "bundle/vim-swap"]
+	path = bundle/vim-swap
+	url = https://github.com/machakann/vim-swap
+[submodule "bundle/vim-textobj-functioncall"]
+	path = bundle/vim-textobj-functioncall
+	url = https://github.com/machakann/vim-textobj-functioncall
+	ignore = untracked
+[submodule "bundle/vim-dim"]
+	path = bundle/vim-dim
+	url = https://github.com/jeffkreeftmeijer/vim-dim
