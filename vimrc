@@ -42,6 +42,7 @@ let g:vimtex_view_method = 'zathura'
 set tabstop=8
 set softtabstop=8
 set shiftwidth=8
+set textwidth=0
 set noexpandtab
 
 " Airline
@@ -201,15 +202,9 @@ noremap <leader>T:   :Tabular /:\zs
 noremap <leader>T=   :Tabular /=\zs
 noremap <leader>T,   :Tabular /,\zs
 
-" Glorious 8-space tabs master race
-set tabstop=8
-set shiftwidth=8
-set textwidth=0
-set noexpandtab
-
 " Non-typo abbreviations
-iabbrev myemail miles.rout@gmail.com
-iabbrev mysig Miles Rout <miles.rout@gmail.com>
+iabbrev myemail miles@rout.nz
+iabbrev mysig Miles Rout <miles@rout.nz>
 
 " Functions
 function! Tab(char, times)
