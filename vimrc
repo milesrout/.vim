@@ -387,7 +387,7 @@ augroup my_augroup_man
   autocmd FileType man setlocal colorcolumn=100
 augroup END
 
-let g:base16_shell_path="$HOME/colors/base16-shell/scripts/"
+let g:base16_shell_path="$HOME/.local/share/base16-shell/scripts/"
 if filereadable(expand("~/.vimrc_background"))
   let base16colorspace=256
   source ~/.vimrc_background
