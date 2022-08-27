@@ -93,7 +93,6 @@ omap aF <Plug>(textobj-function-A)
 
 " Fix stupid things about vim
 set wildmode=list:longest,longest
-"set autochdir  " in hindsight this is probably not a good idea
 set backspace=indent,eol,start
 
 " Indentation
@@ -141,12 +140,6 @@ map <down> <C-e>
 " Fix stupid default side scrolling nonsense
 set sidescrolloff=1
 set sidescroll=1
-
-" Disable arrow keys (to force me to use hjkl)
-imap <left> <nop>
-imap <right> <nop>
-imap <up> <nop>
-imap <down> <nop>
 
 map <leader>y "+y
 map <leader>d "+d
@@ -389,6 +382,11 @@ augroup my_augroup_visp
   autocmd FileType visp setlocal ts=2 sts=2 sw=2 et
 augroup END
 
+augroup my_augroup_man
+  autocmd!
+  autocmd FileType man setlocal colorcolumn=100
+augroup END
+
 let g:base16_shell_path="$HOME/colors/base16-shell/scripts/"
 if filereadable(expand("~/.vimrc_background"))
   let base16colorspace=256
@@ -396,6 +394,8 @@ if filereadable(expand("~/.vimrc_background"))
 endif
 let g:airline_theme=substitute(g:colors_name, "-", "_", "g")
 set guifont="DejaVu Sans Mono 12"
+
+colorscheme dim
 
 hi QuickFixLine cterm=reverse guibg=Grey
 hi Search       cterm=reverse guibg=Grey
