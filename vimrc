@@ -396,7 +396,8 @@ let g:airline_theme=substitute(g:colors_name, "-", "_", "g")
 set guifont="DejaVu Sans Mono 12"
 
 colorscheme dim
+set bg=dark
 
 hi QuickFixLine cterm=reverse guibg=Grey
 hi Search       cterm=reverse guibg=Grey
-hi Comment      cterm=italic  gui=italic
+hi Comment      cterm=italic gui=italic ctermfg=147 guifg=#afafff

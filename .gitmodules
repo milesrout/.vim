@@ -99,6 +99,7 @@
 [submodule "bundle/vim-magnum"]
 	path = bundle/vim-magnum
 	url = https://github.com/glts/vim-magnum
+	ignore = untracked
 [submodule "bundle/vim-rsi"]
 	path = bundle/vim-rsi
 	url = https://github.com/tpope/vim-rsi
