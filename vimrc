@@ -23,6 +23,22 @@ set incsearch
 set nohlsearch
 set shell=/bin/bash
 
+" Stupid syntastic shit
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_aggregate_errors = 1
+let g:syntastic_enable_racket_racket_checker = 0
+
+" Syntastic checkers
+let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_python_checkers = ['flake8']
+let g:syntastic_c_checkers = []
+
+let g:syntastic_c_compiler_options = "-std=c99 -Wall -Wno-unused-variable -D_XOPEN_SOURCE=600"
+let g:syntastic_c_config_file = ".syntastic_c_config"
+
+let g:vimtex_view_method = 'zathura'
+
 " Glorious 8-space tabs master race
 set tabstop=8
 set softtabstop=8
@@ -443,6 +459,7 @@ augroup myaugroup_c
   autocmd FileType c nnoremap <buffer> <localleader>b  :Break<cr>
   autocmd FileType c nnoremap <buffer> <localleader>e  :Evaluate<Space>
   autocmd FileType c setlocal foldmethod=marker
+  autocmd FileType c setlocal ts=8 sts=8 sw=8 noet
 augroup END
 
 augroup myaugroup_dcpu
@@ -473,16 +490,22 @@ augroup my_augroup_man
   autocmd FileType man setlocal colorcolumn=100
 augroup END
 
-set guifont="DejaVu Sans Mono 12"
-
 let base16colorspace=256
-colorscheme dim
+let g:base16_shell_path="$HOME/.config/base16-shell/scripts/"
+if filereadable(expand("~/.vimrc_background"))
+  source ~/.vimrc_background
+endif
+
+colorscheme base16-irblack
 set bg=dark
-let g:airline_theme="base16"
+let g:airline_theme="base16_shell"
+
+set guifont="DejaVu Sans Mono 12"
 
 hi QuickFixLine cterm=reverse guibg=Grey
 hi Search       cterm=reverse guibg=Grey
 hi Comment      cterm=italic gui=italic ctermfg=147 guifg=#afafff
+"hi Comment      cterm=italic gui=italic ctermfg=91 guifg=#8700af
 
 hi SignColumn                 cterm=bold ctermfg=NONE  ctermbg=NONE guifg=NONE  guibg=NONE
 hi SignifySignAdd             cterm=bold ctermfg=green ctermbg=NONE guifg=green guibg=NONE
