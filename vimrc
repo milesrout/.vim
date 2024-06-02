@@ -75,6 +75,11 @@ noremap k gk
 noremap gj j
 noremap gk k
 
+omap i, <Plug>(swap-textobject-i)
+xmap i, <Plug>(swap-textobject-i)
+omap a, <Plug>(swap-textobject-a)
+xmap a, <Plug>(swap-textobject-a)
+
 let g:textobj_functioncall_no_default_key_mappings = 1
 xmap iC <Plug>(textobj-functioncall-i)
 omap iC <Plug>(textobj-functioncall-i)
@@ -152,6 +157,8 @@ noremap <leader>ve   :edit $MYVIMRC<cr>
 noremap <leader>vs   :split $MYVIMRC<cr>
 noremap <leader>vv   :vsplit $MYVIMRC<cr>
 noremap <leader>vt   :tabedit $MYVIMRC<cr>
+
+noremap <leader>cv   :vsplit ~/.config/vim/syntax/c.vim<cr>
 
 noremap <leader>bl   :set bg=light<cr>
 noremap <leader>bd   :set bg=dark<cr>
